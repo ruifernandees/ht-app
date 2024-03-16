@@ -1,7 +1,6 @@
 {
   "name": "htapp",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
@@ -9,13 +8,23 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.16",
+    "@types/react": "~18.2.45",
     "expo": "~50.0.13",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@typescript-eslint/eslint-plugin": ">=7.0.2",
+    "@typescript-eslint/parser": ">=7.0.2",
+    "eslint": ">=8.56.0",
+    "eslint-config-xo": "^0.44.0",
+    "eslint-config-xo-typescript": "^4.0.0",
+    "eslint-plugin-react": "^7.34.1",
+    "prettier": "^3.2.5",
+    "typescript": ">=5.0.0"
   },
   "private": true
 }
