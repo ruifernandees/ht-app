@@ -20,3 +20,15 @@ export const MainContainer = styled(SafeAreaView)`
   flex: 1;
   align-items: center;
 `
+export const LoginInput = styled.TextInput`
+  border-width: ${RFValue(1)}px;
+  border-color: ${theme.colors.gray};
+  border-radius: ${RFValue(10)}px;
+  margin-top: ${RFValue(10)}px ;
+  font-size: ${RFValue(12)}px;
+  padding-top: ${RFValue(10)}px ;
+  padding-bottom: ${RFValue(10)}px ;
+  padding-left: ${RFValue(10)}px;
+  padding-right: ${RFValue(24)}px;
+  min-width: ${RFValue(200)}px;
+`
