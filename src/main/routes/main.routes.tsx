@@ -11,7 +11,7 @@ export function MainRouteCollection() {
 	return (
 		<NavigationContainer >
 			<Stack.Navigator
-				initialRouteName={EAppStackRoutes.BottomTabNavigation}
+				initialRouteName={EAppStackRoutes.Authentication}
 				screenOptions={{headerShown: false}}
 			>
 				<Stack.Screen name={EAppStackRoutes.BottomTabNavigation} component={BottomTabCollection} />

@@ -19,6 +19,7 @@ export function BottomTabCollection() {
 				},
 				tabBarActiveTintColor: theme.colors.blue,
 				tabBarInactiveTintColor: theme.colors.gray,
+				headerShown: false,
 			})}
 		>
 			{
