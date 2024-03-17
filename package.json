@@ -25,6 +25,7 @@
     "expo": "~50.0.13",
     "expo-status-bar": "~1.11.1",
     "expo-vector-icons": "^10.0.1",
+    "lottie-react-native": "6.5.1",
     "react": "18.2.0",
     "react-hook-form": "^7.51.0",
     "react-native": "0.73.5",

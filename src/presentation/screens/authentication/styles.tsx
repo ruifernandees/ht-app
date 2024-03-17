@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
 import SignLanguageImage from '@/assets/images/sign-language.png';
 import { Feather } from '@expo/vector-icons';
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { theme } from "@/global/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Dimensions } from "react-native";
 
 export const Title = styled.Text`
   font-family: ${theme.typography.fontFamily.inter.black};
@@ -44,3 +45,13 @@ export const ErrorText = styled.Text`
 `
 
 export const InputContainer = styled.View``
+
+export const LoadingOverlayContainer = styled.View`
+  position: absolute;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0.5,0.5,0.5,0.9);
+  width: ${Dimensions.get('window').width}px;
+  height: ${Dimensions.get('window').height}px;
+`;
