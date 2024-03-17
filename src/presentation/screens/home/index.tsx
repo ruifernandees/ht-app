@@ -1,8 +1,11 @@
+import { useAuthenticationStore } from '@/presentation/stores/authentication';
 import React from 'react';
-import {View, Text} from 'react-native';
+import { Container } from './styles';
+import { Header } from '@/presentation/components/Header';
 
-export const HomeScreen: React.FC = () => (
-	<View>
-		<Text>Hello World</Text>
-	</View>
-);
+export const HomeScreen: React.FC = () => {
+	const {user} = useAuthenticationStore()
+	return <Container>
+		<Header title={`Olá, ${user?.name}`} />
+	</Container>
+};

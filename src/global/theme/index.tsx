@@ -1,7 +1,13 @@
 export const theme = {
 	colors: {
 		blue: '#8F95FF',
+		darkBlue: '#4550FF',
+		green: '#38FF77',
+		red: '#FF5351',
+		yellow: '#FFE16B',
 		gray: '#aaa',
+		white: '#fff',
+		black: '#000',
 	},
 	typography: {
 		fontFamily: {
