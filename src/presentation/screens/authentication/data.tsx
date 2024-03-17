@@ -1,13 +1,18 @@
 import * as zod from 'zod'
 
+type TAutoCapitalize = "none" | "sentences" | "words" | "characters" | undefined
+
 export const inputs = [
   {
     placeholder: 'E-mail',
     name: 'email',
+    autoCapitalize: 'none' as TAutoCapitalize,
   },
   {
     placeholder: 'Senha',
     name: 'password',
+    secureTextEntry: true,
+    autoCapitalize: 'none' as TAutoCapitalize,
   }
 ]
 
