@@ -6,4 +6,5 @@ export interface IAuthenticationStoreData {
 
 export interface IAuthenticationStoreProps extends IAuthenticationStoreData {
   setUser: (user: IUser) => void;
+  logout: () => Promise<void>;
 }

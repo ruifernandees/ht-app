@@ -13,4 +13,7 @@ export class FirebaseUsersRepository implements IUsersRepository {
     };
   }
 
+  async logout(): Promise<void> {
+    return auth().signOut();
+  }
 }

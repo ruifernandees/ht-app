@@ -7,6 +7,7 @@ export const theme = {
 		yellow: '#FFE16B',
 		gray: '#aaa',
 		white: '#fff',
+		black: '#000',
 	},
 	typography: {
 		fontFamily: {
