@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {MainRouteCollection} from './routes/main.routes';
 
 if (__DEV__) {

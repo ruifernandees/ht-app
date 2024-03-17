@@ -24,7 +24,7 @@ import { EAppStackRoutes } from '@/main/routes/mappers/EAppStackRoutes';
 export const AuthenticationScreen: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const animation = useRef<LottieView>(null);
-  const { navigate } = useNavigation();
+
 
   const {
     handleSubmit,
@@ -44,7 +44,7 @@ export const AuthenticationScreen: React.FC = () => {
 			const user = await authenticateUserUseCase.execute(data);
 			console.log(JSON.stringify(user, null ,2))
 			setUser(user);
-			navigate(EAppStackRoutes.BottomTabNavigation as never);
+
 		} catch (error) {
 			AccessibilityInfo
 				.announceForAccessibility('Erro ao fazer login. Verifique seu e-mail e senha e tente novamente.');
