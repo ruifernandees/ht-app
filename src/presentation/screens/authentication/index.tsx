@@ -16,6 +16,7 @@ import { authenticateUserUseCase } from '@/main/usecases/authenticateUserUseCase
 import LottieView from 'lottie-react-native';
 
 import PaperPlane from '@/assets/animations/paper.json';
+import { useAuthenticationStore } from '@/infra/stores/authentication';
 
 
 export const AuthenticationScreen: React.FC = () => {
@@ -30,14 +31,16 @@ export const AuthenticationScreen: React.FC = () => {
 		resolver: zodResolver(FormSchema)
 	});
 
+	const { setUser } = useAuthenticationStore();
+
 	async function handleLogin(data: IFieldValues){ 
 		console.log({data})
 
 		setIsLoading(true);
 		try {
-			const result = await authenticateUserUseCase.execute(data);
-		
-			console.log(JSON.stringify(result, null ,2))
+			const user = await authenticateUserUseCase.execute(data);
+			console.log(JSON.stringify(user, null ,2))
+			setUser(user);
 		} catch (error) {
 			AccessibilityInfo
 				.announceForAccessibility('Erro ao fazer login. Verifique seu e-mail e senha e tente novamente.');
