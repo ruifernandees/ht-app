@@ -11,7 +11,6 @@ import { LoadingWithOverlay } from '@/presentation/components/LoadingWithOverlay
 
 export const SettingsScreen: React.FC = () => {
 	const { user, logout } = useAuthenticationStore();
-	const { navigate } = useNavigation();
 	const [isLoading, setIsLoading] = useState(false);
 
 	return <Container>
@@ -21,7 +20,7 @@ export const SettingsScreen: React.FC = () => {
 			setIsLoading(true);
 			try {
 				await logout()
-				navigate(EAppStackRoutes.Authentication as never);
+
 				const message = `Até mais, ${user?.name}!`;
 				AccessibilityInfo
 					.announceForAccessibility(message);

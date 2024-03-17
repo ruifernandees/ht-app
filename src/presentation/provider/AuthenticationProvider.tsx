@@ -10,6 +10,8 @@ export const AuthenticationProvider: React.FC<{children: React.ReactNode}> = ({c
 	useEffect(() => {
 		if (user) {
 			navigate(EAppStackRoutes.BottomTabNavigation as never);
+		} else {
+			navigate(EAppStackRoutes.Authentication as never);
 		}
 	}, [user])
   return children;
