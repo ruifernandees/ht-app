@@ -1,5 +1,5 @@
 import { IAuthenticationDTO } from "@/domain/dtos/IAuthenticationDTO";
-import { IUser } from "@/domain/entities/IUser";
+import { User } from "@/domain/entities/User";
 import { IUsersRepository } from "@/domain/repositories/IUsersRepository";
 
 export class AuthenticateUserUseCase {
@@ -7,7 +7,7 @@ export class AuthenticateUserUseCase {
     private repository: IUsersRepository,
   ) {}
 
-  async execute(params: IAuthenticationDTO): Promise<IUser> {
+  async execute(params: IAuthenticationDTO): Promise<User> {
     return this.repository.authenticate(params);
   }
 }

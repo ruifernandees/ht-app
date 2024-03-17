@@ -1,10 +1,10 @@
-import { IUser } from "@/domain/entities/IUser";
+import { User } from "@/domain/entities/User";
 
 export interface IAuthenticationStoreData {
-  user?: IUser;
+  user?: User;
 }
 
 export interface IAuthenticationStoreProps extends IAuthenticationStoreData {
-  setUser: (user: IUser) => void;
+  setUser: (user: User) => void;
   logout: () => Promise<void>;
 }

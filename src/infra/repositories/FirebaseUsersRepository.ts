@@ -1,16 +1,13 @@
 import auth from '@react-native-firebase/auth';
 import { IAuthenticationDTO } from "@/domain/dtos/IAuthenticationDTO";
-import { IUser } from "@/domain/entities/IUser";
+import { User } from "@/domain/entities/User";
 import { IUsersRepository } from "@/domain/repositories/IUsersRepository";
+import { FirebaseUserAdapter } from './adapters/FirebaseUserAdapter';
 
 export class FirebaseUsersRepository implements IUsersRepository {
-  async authenticate(params: IAuthenticationDTO): Promise<IUser> {
+  async authenticate(params: IAuthenticationDTO): Promise<User> {
     const response = await auth().signInWithEmailAndPassword(params.email, params.password)
-    if (!response.user.email || !response.user.displayName) throw new Error('Dados inválidos');
-    return {
-      email: response.user.email,
-      name: response.user.displayName,
-    };
+    return new FirebaseUserAdapter(response);
   }
 
   async logout(): Promise<void> {

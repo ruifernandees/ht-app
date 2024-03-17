@@ -1,7 +1,7 @@
 import { IAuthenticationDTO } from "../dtos/IAuthenticationDTO";
-import { IUser } from "../entities/IUser";
+import { User } from "../entities/User";
 
 export interface IUsersRepository {
-  authenticate(params: IAuthenticationDTO): Promise<IUser>;
+  authenticate(params: IAuthenticationDTO): Promise<User>;
   logout(): Promise<void>;
 }
