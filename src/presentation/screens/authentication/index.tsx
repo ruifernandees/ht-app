@@ -1,34 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable no-unsafe-assignment */
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Banner, ChevronRight, ErrorText, InputContainer, LoadingOverlayContainer, LoginInput, MainContainer, Title } from './styles';
 import {Controller, useForm} from 'react-hook-form'
 import { FormSchema, inputs } from './data';
-import { AccessibilityInfo } from 'react-native';
+import { AccessibilityInfo, Keyboard } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 
 import { IFieldValues } from './props';
 import { Button } from '@/presentation/components/Button';
 import { zodResolver } from '@hookform/resolvers/zod'
-import auth from '@react-native-firebase/auth';
 import { theme } from '@/global/theme';
 import { authenticateUserUseCase } from '@/main/usecases/authenticateUserUseCase';
 import LottieView from 'lottie-react-native';
 
 import PaperPlane from '@/assets/animations/paper.json';
 import { useAuthenticationStore } from '@/presentation/stores/authentication';
-import { useNavigation } from '@react-navigation/native';
-import { EAppStackRoutes } from '@/main/routes/mappers/EAppStackRoutes';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 export const AuthenticationScreen: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const animation = useRef<LottieView>(null);
 
-
   const {
     handleSubmit,
 		control,
+		reset,
     formState: { errors },
   } = useForm<IFieldValues>({
 		resolver: zodResolver(FormSchema)
@@ -40,9 +38,12 @@ export const AuthenticationScreen: React.FC = () => {
 		console.log({data})
 
 		setIsLoading(true);
+		Keyboard.dismiss();
 		try {
 			const user = await authenticateUserUseCase.execute(data);
 			console.log(JSON.stringify(user, null ,2))
+			AccessibilityInfo
+				.announceForAccessibility(`Seja bem-vindo(a) ${user.name}`);
 			setUser(user);
 
 		} catch (error) {
@@ -59,6 +60,10 @@ export const AuthenticationScreen: React.FC = () => {
 			setIsLoading(false);
 		}
 	}
+
+	useFocusEffect(useCallback(() => {
+		reset()
+	}, []));
 
 	return (
 		<MainContainer>
