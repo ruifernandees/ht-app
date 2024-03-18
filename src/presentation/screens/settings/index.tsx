@@ -28,8 +28,11 @@ export const SettingsScreen: React.FC = () => {
 
 	const modalizeRef = useRef<Modalize>(null);
 	
-  const onOpen = () => {
+  const onOpen = (_selectedObject: EObjectId) => {
+		AccessibilityInfo
+			.announceForAccessibility(`Modal aberto para configurar ${ObjectLabelsMapper[_selectedObject]}`);
     modalizeRef.current?.open();
+		setSelectedObject(_selectedObject);
   };
 
 
@@ -74,8 +77,9 @@ export const SettingsScreen: React.FC = () => {
 				<Input placeholder="Cor do Objeto" />
 				<Subtitle>Forma do Objeto</Subtitle>
 				<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-					<RadioButton.Item label="First item" value="first" />
-					<RadioButton.Item label="Second item" value="second" />
+					{options.map(_option => {
+						return <RadioButton.Item label={_option.label} value={_option.value} />
+					})}
 				</RadioButton.Group>
 				<Input placeholder="Rotação" />
 				<OptionButton onPress={() => modalizeRef.current?.open()} color={theme.colors.blue}>	
@@ -88,22 +92,19 @@ export const SettingsScreen: React.FC = () => {
 		<Header title="Configurações" />
 		{isLoading ? <LoadingWithOverlay/>: null}
 		<OptionButton onPress={() => {
-			setSelectedObject(EObjectId.OBJECT_A)
-			modalizeRef.current?.open()
+			onOpen(EObjectId.OBJECT_A)
 		}} color={theme.colors.blue}>	
 			<ButtonText color={theme.colors.white}>Objeto A</ButtonText>
 			<Icon name="chevron-right" color={theme.colors.white} />
 		</OptionButton>
 		<OptionButton onPress={() => {
-			setSelectedObject(EObjectId.OBJECT_B)
-			modalizeRef.current?.open()
+			onOpen(EObjectId.OBJECT_B)
 		}} color={theme.colors.blue}>	
 			<ButtonText color={theme.colors.white}>Objeto B</ButtonText>
 			<Icon name="chevron-right" color={theme.colors.white} />
 		</OptionButton>
 		<OptionButton onPress={() => {
-			setSelectedObject(EObjectId.OBJECT_C)
-			modalizeRef.current?.open()
+			onOpen(EObjectId.OBJECT_C)
 		}} color={theme.colors.blue}>	
 			<ButtonText color={theme.colors.white}>Objeto C</ButtonText>
 			<Icon name="chevron-right" color={theme.colors.white} />
