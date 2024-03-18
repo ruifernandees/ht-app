@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
+
 import {MainRouteCollection} from './routes/main.routes';
+
 
 if (__DEV__) {
   import("../../reactotron-config").then(() => console.log("Reactotron Configured"));
@@ -7,6 +10,8 @@ if (__DEV__) {
 
 export default function App() {
 	return (
-		<MainRouteCollection/>
+		<PaperProvider theme={DefaultTheme}>
+			<MainRouteCollection/>
+		</PaperProvider>
 	);
 }
