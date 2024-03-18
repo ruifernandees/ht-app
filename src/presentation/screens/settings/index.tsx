@@ -13,30 +13,32 @@ export const SettingsScreen: React.FC = () => {
 	const { user, logout } = useAuthenticationStore();
 	const [isLoading, setIsLoading] = useState(false);
 
+	async function handleLogout() {
+		setIsLoading(true);
+		try {
+			await logout()
+
+			const message = `Até mais, ${user?.name}!`;
+			AccessibilityInfo
+				.announceForAccessibility(message);
+			Snackbar.show({
+				text: message,
+				duration: 5000,
+				textColor: theme.colors.white,
+				fontFamily: theme.typography.fontFamily.inter.bold,
+				backgroundColor: theme.colors.darkBlue
+			});
+		} catch (err) {
+			console.error(err)
+		} finally {
+			setIsLoading(true);
+		}
+	}
+
 	return <Container>
 		<Header title="Configurações" />
 		{isLoading ? <LoadingWithOverlay/>: null}
-		<OptionButton onPress={async () => {
-			setIsLoading(true);
-			try {
-				await logout()
-
-				const message = `Até mais, ${user?.name}!`;
-				AccessibilityInfo
-					.announceForAccessibility(message);
-				Snackbar.show({
-					text: message,
-					duration: 5000,
-					textColor: theme.colors.white,
-					fontFamily: theme.typography.fontFamily.inter.bold,
-					backgroundColor: theme.colors.darkBlue
-				});
-			} catch (err) {
-				console.error(err)
-			} finally {
-				setIsLoading(true);
-			}
-		}}>	
+		<OptionButton onPress={handleLogout}>	
 			<ButtonText>Sair</ButtonText>
 			<Icon name="log-out" />
 		</OptionButton>
