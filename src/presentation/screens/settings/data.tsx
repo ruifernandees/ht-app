@@ -1,3 +1,4 @@
+import { EObjectId } from '@/domain/enums/EObjectId';
 import * as zod from 'zod'
 
 type TAutoCapitalize = "none" | "sentences" | "words" | "characters" | undefined
@@ -75,3 +76,9 @@ export const options = [
   { label: 'Cubo', value: 'cube' },
   { label: 'Nó', value: 'torusKnot' }
 ]
+
+export const ObjectLabelsMapper: {[key: string]: string} = {
+  [EObjectId.OBJECT_A]: 'Objeto A',
+  [EObjectId.OBJECT_B]: 'Objeto A',
+  [EObjectId.OBJECT_C]: 'Objeto A',
+}
