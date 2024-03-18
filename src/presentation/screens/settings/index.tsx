@@ -81,7 +81,7 @@ export const SettingsScreen: React.FC = () => {
 						return <RadioButton.Item label={_option.label} value={_option.value} />
 					})}
 				</RadioButton.Group>
-				<Input placeholder="Rotação" />
+				<Input placeholder="Rotação" keyboardType="numeric" />
 				<OptionButton onPress={() => modalizeRef.current?.open()} color={theme.colors.blue}>	
 					<ButtonText color={theme.colors.white}>Salvar</ButtonText>
 					<Icon name="send" color={theme.colors.white} />
