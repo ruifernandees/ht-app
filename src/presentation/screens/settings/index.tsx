@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { ButtonText, Container,  Icon, Input, Modal, ModalContent, OptionButton, Title } from './styles';
+import React, { useMemo, useRef, useState } from 'react';
+import { ButtonText, Container,  Icon, Input, Modal, ModalContent, OptionButton, Subtitle, Title } from './styles';
 import { Header } from '@/presentation/components/Header';
 import { useAuthenticationStore } from '@/presentation/stores/authentication';
 import { AccessibilityInfo } from 'react-native';
 
+import RadioGroup from 'react-native-radio-buttons-group';
 import Snackbar from 'react-native-snackbar';
 import { theme } from '@/global/theme';
 import { LoadingWithOverlay } from '@/presentation/components/LoadingWithOverlay';
@@ -13,6 +14,7 @@ import {  useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modalize } from 'react-native-modalize';
 import { EObjectId } from '@/domain/enums/EObjectId';
+import { Divider, RadioButton } from 'react-native-paper';
 
 export const SettingsScreen: React.FC = () => {
 	const { user, logout } = useAuthenticationStore();
@@ -22,13 +24,15 @@ export const SettingsScreen: React.FC = () => {
 	const [open3, setOpen3] = useState(false);
   const [items, setItems] = useState(options);
 	const [selectedObject, setSelectedObject] = useState<EObjectId>()
+  const [value, setValue] = React.useState('first');
 
 	const modalizeRef = useRef<Modalize>(null);
 	
-
   const onOpen = () => {
     modalizeRef.current?.open();
   };
+
+
 
 
 	const {
@@ -66,8 +70,13 @@ export const SettingsScreen: React.FC = () => {
 		<Modal ref={modalizeRef} adjustToContentHeight>
 			<ModalContent>
 				{selectedObject ? <Title>{ObjectLabelsMapper[selectedObject]}</Title> : null}
+				<Divider style={{marginBottom: 24}} />
 				<Input placeholder="Cor do Objeto" />
-				<Input placeholder="Forma do Objeto" />
+				<Subtitle>Forma do Objeto</Subtitle>
+				<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+					<RadioButton.Item label="First item" value="first" />
+					<RadioButton.Item label="Second item" value="second" />
+				</RadioButton.Group>
 				<Input placeholder="Rotação" />
 				<OptionButton onPress={() => modalizeRef.current?.open()} color={theme.colors.blue}>	
 					<ButtonText color={theme.colors.white}>Salvar</ButtonText>

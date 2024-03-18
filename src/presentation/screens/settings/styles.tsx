@@ -62,6 +62,12 @@ export const Title = styled.Text`
   margin-bottom: ${RFValue(12)}px;
 `;
 
+export const Subtitle = styled.Text`
+  font-family: ${theme.typography.fontFamily.inter.medium};
+  font-size: ${RFValue(16)}px;
+  margin-bottom: ${RFValue(12)}px;
+`;
+
 export const ModalContent = styled.View`
   padding: ${RFValue(24)}px;
 `;
