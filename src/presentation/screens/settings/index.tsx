@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ButtonText, Container,  Icon, Input, Modal, ModalContent, OptionButton, Subtitle, Title } from './styles';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ButtonText, ColorDisplay, Container,  Content,  ErrorText,  Icon, Input, InputContainer, InputHorizontalContainer, Modal, ModalContent, OptionButton, SegmentedButtonsContainer, Subtitle, Title } from './styles';
 import { Header } from '@/presentation/components/Header';
 import database from '@react-native-firebase/database';
 
@@ -12,11 +12,15 @@ import { theme } from '@/global/theme';
 import { LoadingWithOverlay } from '@/presentation/components/LoadingWithOverlay';
 import { FormSchema, ObjectLabelsMapper, inputs, options } from './data';
 import { IFieldValues } from './props';
-import {  useForm } from 'react-hook-form';
+import {  Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modalize } from 'react-native-modalize';
 import { EObjectId } from '@/domain/enums/EObjectId';
-import { Divider, RadioButton } from 'react-native-paper';
+import { Divider, RadioButton, SegmentedButtons } from 'react-native-paper';
+import { useObjectsStore } from '@/presentation/stores/objects';
+import { ShapeObject } from '@/domain/entities/ShapeObject';
+import { useFocusEffect } from '@react-navigation/native';
+import { validateHexColor } from '@/global/helpers/validateHexColor';
 
 export const SettingsScreen: React.FC = () => {
 	const { user, logout } = useAuthenticationStore();
@@ -25,34 +29,71 @@ export const SettingsScreen: React.FC = () => {
 	const [open2, setOpen2] = useState(false);
 	const [open3, setOpen3] = useState(false);
   const [items, setItems] = useState(options);
-	const [selectedObject, setSelectedObject] = useState<EObjectId>()
-  const [value, setValue] = React.useState('first');
-
+	
 	const modalizeRef = useRef<Modalize>(null);
 	
-  const onOpen = (_selectedObject: EObjectId) => {
-		AccessibilityInfo
-			.announceForAccessibility(`Modal aberto para configurar ${ObjectLabelsMapper[_selectedObject]}`);
-    modalizeRef.current?.open();
-		setSelectedObject(_selectedObject);
-  };
-
-
-
-	useEffect(() => {
-		const reference = database().ref('/users/123');
-
-		console.log({reference})
-	}, [])
-
+	const { objects, setObject } = useObjectsStore()
+	const [selectedObject, setSelectedObject] = useState<ShapeObject>(objects[0])
 	const {
     handleSubmit,
 		control,
+		setValue,
 		reset,
     formState: { errors },
   } = useForm<IFieldValues>({
 		resolver: zodResolver(FormSchema)
 	});
+		
+  const handleObject = (_selectedObject: string) => {
+		const object = objects.find(object => {
+			return object.id === _selectedObject
+		})
+		if (object){ 
+			AccessibilityInfo
+				.announceForAccessibility(`
+					Você selecionou o ${object.name}. Arraste para baixo para configuração.
+				`);
+			console.log({object})
+			setSelectedObject(object);
+			setValue('color', object.color);
+			setValue('shape', object.shape);
+			const [rotationX, rotationY, rotationZ] = object.rotation
+			setValue('rotationX', String(rotationX));
+			setValue('rotationY', String(rotationY));
+			setValue('rotationZ', String(rotationZ));
+
+		}
+  };
+
+	useEffect(() => console.log('A ', selectedObject),[selectedObject])
+
+	useFocusEffect(useCallback(() => {
+		AccessibilityInfo
+			.announceForAccessibility(`
+				Você está na tela de configurações. 
+				Abaixo do título "Configurações" existem opções de objetos dispostas horizontalmente que você pode selecionar para configurar.
+			`);
+	}, []));
+
+
+
+	async function handleDB() {
+		modalizeRef.current?.open()
+		return
+		// if (user){
+		// 	console.log('USER' ,user);
+		// 		try {
+		// 			console.log('BEFORE REF')
+		// 			const reference = database().ref(`/users/${user.id}`);
+		// 			const a = await reference.set(user)
+		// 			console.log({a, reference})
+		// 		} catch (error) {
+		// 			console.error('📚', error)
+		// 		}
+
+		// 	}
+	}
+
 	
 
 	async function handleLogout() {
@@ -78,48 +119,128 @@ export const SettingsScreen: React.FC = () => {
 	}
 
 	return <Container>
-		<Modal ref={modalizeRef} adjustToContentHeight>
-			<ModalContent>
-				{selectedObject ? <Title>{ObjectLabelsMapper[selectedObject]}</Title> : null}
+		<Content>
+		{isLoading ? <LoadingWithOverlay/>: null}
+		<Header 
+			title="Configurações" 
+			iconAtEnd={
+				<Icon name="log-out" onPress={handleLogout} accessibilityLabel="Botão de deslogar" />
+			}
+		/>
+		<SegmentedButtonsContainer>
+			<SegmentedButtons
+				value={selectedObject?.id}
+				onValueChange={handleObject}
+				buttons={objects.map(_object => ({
+					value: _object.id,
+					label: _object.name
+				}))}
+			/>
+		</SegmentedButtonsContainer>
+		{selectedObject ? <Title>{ObjectLabelsMapper[selectedObject.id]}</Title> : null}
 				<Divider style={{marginBottom: 24}} />
-				<Input placeholder="Cor do Objeto" />
+				<Controller
+					control={control}
+					name="color"
+					render={({ field: { onBlur, onChange, value } }) => {
+						return (
+							<InputContainer>
+								<Subtitle>Cor em Hexadecimal</Subtitle>
+								<InputHorizontalContainer>
+									<Input 
+										placeholder="Cor do Objeto" 
+										onChangeText={onChange} 
+										value={value} 
+										onBlur={onBlur} 
+									/>
+									<ColorDisplay color={validateHexColor(value) ? value : undefined} />
+								</InputHorizontalContainer>
+								{errors['color']?.message ?
+									<ErrorText >{errors['color']?.message}</ErrorText> 
+									:	null 
+								}
+							</InputContainer>
+						)
+					}}
+				/>
+
 				<Subtitle>Forma do Objeto</Subtitle>
-				<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-					{options.map(_option => {
-						return <RadioButton.Item label={_option.label} value={_option.value} />
-					})}
-				</RadioButton.Group>
-				<Input placeholder="Rotação" keyboardType="numeric" />
-				<OptionButton onPress={() => modalizeRef.current?.open()} color={theme.colors.blue}>	
+				<Controller
+					control={control}
+					name="shape"
+					render={({ field: { onBlur, onChange, value } }) => {
+						return (
+							<RadioButton.Group onValueChange={onChange} value={value}>
+								{options.map(_option => {
+									return <RadioButton.Item key={_option.label} label={_option.label} value={_option.value} />
+								})}
+								{errors['shape']?.message ?
+									<ErrorText >{errors['shape']?.message}</ErrorText> 
+									:	null 
+								}
+							</RadioButton.Group>
+						)
+					}}
+				/>
+
+				<Controller
+					control={control}
+					name="rotationX"
+					render={({ field: { onBlur, onChange, value } }) => {
+						return (
+							<InputContainer >
+								<Subtitle>Rotação em X</Subtitle>
+								<Input placeholder="Rotação" onChangeText={onChange} value={value} onBlur={onBlur} />
+								{errors['rotationX']?.message ?
+									<ErrorText >{errors['rotationX']?.message}</ErrorText> 
+									:	null 
+								}
+							</InputContainer>
+						)
+					}}
+				/>
+
+				<Controller
+					control={control}
+					name="rotationY"
+					render={({ field: { onBlur, onChange, value } }) => {
+						return (
+							<InputContainer >
+								<Subtitle>Rotação em Y</Subtitle>
+								<Input placeholder="Rotação" onChangeText={onChange} value={value} onBlur={onBlur} />
+								{errors['rotationY']?.message ?
+									<ErrorText >{errors['rotationY']?.message}</ErrorText> 
+									:	null 
+								}
+							</InputContainer>
+						)
+					}}
+				/>
+
+				<Controller
+					control={control}
+					name="rotationZ"
+					render={({ field: { onBlur, onChange, value } }) => {
+						return (
+							<InputContainer >
+								<Subtitle>Rotação em Z</Subtitle>
+								<Input placeholder="Rotação" onChangeText={onChange} value={value} onBlur={onBlur} />
+								{errors['rotationZ']?.message ?
+									<ErrorText >{errors['rotationZ']?.message}</ErrorText> 
+									:	null 
+								}
+							</InputContainer>
+						)
+					}}
+				/>
+
+				<OptionButton onPress={handleSubmit(handleDB)} color={theme.colors.blue}>	
 					<ButtonText color={theme.colors.white}>Salvar</ButtonText>
 					<Icon name="send" color={theme.colors.white} />
 				</OptionButton>
-			</ModalContent>
-
-		</Modal>
-		<Header title="Configurações" />
-		{isLoading ? <LoadingWithOverlay/>: null}
-		<OptionButton onPress={() => {
-			onOpen(EObjectId.OBJECT_A)
-		}} color={theme.colors.blue}>	
-			<ButtonText color={theme.colors.white}>Objeto A</ButtonText>
-			<Icon name="chevron-right" color={theme.colors.white} />
+		<OptionButton onPress={handleDB}>	
+			<ButtonText>DB</ButtonText>
 		</OptionButton>
-		<OptionButton onPress={() => {
-			onOpen(EObjectId.OBJECT_B)
-		}} color={theme.colors.blue}>	
-			<ButtonText color={theme.colors.white}>Objeto B</ButtonText>
-			<Icon name="chevron-right" color={theme.colors.white} />
-		</OptionButton>
-		<OptionButton onPress={() => {
-			onOpen(EObjectId.OBJECT_C)
-		}} color={theme.colors.blue}>	
-			<ButtonText color={theme.colors.white}>Objeto C</ButtonText>
-			<Icon name="chevron-right" color={theme.colors.white} />
-		</OptionButton>
-		<OptionButton onPress={handleLogout}>	
-			<ButtonText>Sair</ButtonText>
-			<Icon name="log-out" />
-		</OptionButton>
+		</Content>
 	</Container>
 };

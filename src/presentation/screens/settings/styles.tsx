@@ -11,6 +11,8 @@ export const Container = styled(SafeAreaView)`
   padding: 0 ${RFValue(16)}px;
 `;
 
+export const Content = styled.ScrollView``
+
 
 export const OptionButton = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7
@@ -46,10 +48,17 @@ export const Input = styled.TextInput`
   min-width: ${RFValue(200)}px;
 
 `
-export const InputContainer = styled.View``
+export const InputContainer = styled.View``;
+
+export const InputHorizontalContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: aqua; */
+`
 
 export const ErrorText = styled.Text`
-  margin-top: ${RFValue(4)}px;
+  margin-bottom: ${RFValue(14)}px;
   font-size: ${RFValue(12)}px;
   color: ${theme.colors.red};
 `
@@ -65,9 +74,24 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
   font-family: ${theme.typography.fontFamily.inter.medium};
   font-size: ${RFValue(16)}px;
-  margin-bottom: ${RFValue(12)}px;
+  margin-bottom: ${RFValue(8)}px;
+  margin-top: ${RFValue(16)}px;
 `;
 
 export const ModalContent = styled.View`
   padding: ${RFValue(24)}px;
 `;
+
+export const SegmentedButtonsContainer = styled.View`
+  margin-top: ${RFValue(12)}px;
+  margin-bottom: ${RFValue(24)}px;
+`;
+
+export const ColorDisplay = styled.View<{color?: string}>`
+  width: ${RFValue(24)}px;
+  height: ${RFValue(24)}px;
+  background-color: ${({ color }) => color || "transparent"};
+  border-width: ${RFValue(1)}px;
+  border-color: ${theme.colors.black};
+  border-radius: ${RFValue(5)}px;
+`
