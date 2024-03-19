@@ -7,6 +7,7 @@ import { FirebaseUserAdapter } from './adapters/FirebaseUserAdapter';
 export class FirebaseUsersRepository implements IUsersRepository {
   async authenticate(params: IAuthenticationDTO): Promise<User> {
     const response = await auth().signInWithEmailAndPassword(params.email, params.password)
+    console.log(JSON.stringify(response, null, 2))
     return new FirebaseUserAdapter(response);
   }
 
