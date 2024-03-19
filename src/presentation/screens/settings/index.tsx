@@ -19,18 +19,13 @@ import { EObjectId } from '@/domain/enums/EObjectId';
 import { Divider, RadioButton, SegmentedButtons } from 'react-native-paper';
 import { useObjectsStore } from '@/presentation/stores/objects';
 import { ShapeObject } from '@/domain/entities/ShapeObject';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { validateHexColor } from '@/global/helpers/validateHexColor';
+import { EAppBottomTabRoutes } from '@/main/routes/mappers/EAppBottomTabRoutes';
 
 export const SettingsScreen: React.FC = () => {
 	const { user, logout } = useAuthenticationStore();
 	const [isLoading, setIsLoading] = useState(false);
-	const [open1, setOpen1] = useState(false);
-	const [open2, setOpen2] = useState(false);
-	const [open3, setOpen3] = useState(false);
-  const [items, setItems] = useState(options);
-	
-	const modalizeRef = useRef<Modalize>(null);
 	
 	const { objects, setObject } = useObjectsStore()
 	const [selectedObject, setSelectedObject] = useState<ShapeObject>(objects[0])
@@ -43,6 +38,17 @@ export const SettingsScreen: React.FC = () => {
   } = useForm<IFieldValues>({
 		resolver: zodResolver(FormSchema)
 	});
+
+	const { navigate } = useNavigation();
+
+	const fillFormByObject = (object: ShapeObject) => {
+		setValue('color', object.color);
+		setValue('shape', object.shape);
+		const [rotationX, rotationY, rotationZ] = object.rotation
+		setValue('rotationX', String(rotationX));
+		setValue('rotationY', String(rotationY));
+		setValue('rotationZ', String(rotationZ));
+	};
 		
   const handleObject = (_selectedObject: string) => {
 		const object = objects.find(object => {
@@ -55,17 +61,12 @@ export const SettingsScreen: React.FC = () => {
 				`);
 			console.log({object})
 			setSelectedObject(object);
-			setValue('color', object.color);
-			setValue('shape', object.shape);
-			const [rotationX, rotationY, rotationZ] = object.rotation
-			setValue('rotationX', String(rotationX));
-			setValue('rotationY', String(rotationY));
-			setValue('rotationZ', String(rotationZ));
+
 
 		}
   };
 
-	useEffect(() => console.log('A ', selectedObject),[selectedObject])
+	useEffect(() => fillFormByObject(selectedObject), [selectedObject])
 
 	useFocusEffect(useCallback(() => {
 		AccessibilityInfo
@@ -77,21 +78,40 @@ export const SettingsScreen: React.FC = () => {
 
 
 
-	async function handleDB() {
-		modalizeRef.current?.open()
-		return
-		// if (user){
-		// 	console.log('USER' ,user);
-		// 		try {
-		// 			console.log('BEFORE REF')
-		// 			const reference = database().ref(`/users/${user.id}`);
-		// 			const a = await reference.set(user)
-		// 			console.log({a, reference})
-		// 		} catch (error) {
-		// 			console.error('📚', error)
-		// 		}
-
-		// 	}
+	async function handleDB(data: IFieldValues) {
+		if (!selectedObject || !user) return;
+		setIsLoading(true);
+		try {
+			await setObject({ 
+				...selectedObject,
+				color: data.color,
+				rotation: [Number(data.rotationX), Number(data.rotationY), Number(data.rotationZ)],
+				shape: data.shape,
+			}, user);
+			const message = `${selectedObject.name} atualizado com sucesso!`;
+			AccessibilityInfo.announceForAccessibility(`${message} Você foi redirecionado para a tela de renderização dos objetos.`);
+			Snackbar.show({
+				text: message,
+				duration: 5000,
+				textColor: theme.colors.white,
+				fontFamily: theme.typography.fontFamily.inter.bold,
+				backgroundColor: theme.colors.darkGreen
+			});
+			navigate(EAppBottomTabRoutes.Home as never);
+		} catch (error) {
+			const message = `Erro ao atualizar o objeto`;
+			AccessibilityInfo.announceForAccessibility(message);
+			Snackbar.show({
+				text: message,
+				duration: 5000,
+				textColor: theme.colors.white,
+				fontFamily: theme.typography.fontFamily.inter.bold,
+				backgroundColor: theme.colors.red
+			});
+			console.error('📚', error)
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
 	
@@ -119,8 +139,8 @@ export const SettingsScreen: React.FC = () => {
 	}
 
 	return <Container>
-		<Content>
 		{isLoading ? <LoadingWithOverlay/>: null}
+		<Content>
 		<Header 
 			title="Configurações" 
 			iconAtEnd={
@@ -137,7 +157,9 @@ export const SettingsScreen: React.FC = () => {
 				}))}
 			/>
 		</SegmentedButtonsContainer>
-		{selectedObject ? <Title>{ObjectLabelsMapper[selectedObject.id]}</Title> : null}
+		{selectedObject ? 
+		<>
+				<Title>{ObjectLabelsMapper[selectedObject.id]}</Title>
 				<Divider style={{marginBottom: 24}} />
 				<Controller
 					control={control}
@@ -238,9 +260,7 @@ export const SettingsScreen: React.FC = () => {
 					<ButtonText color={theme.colors.white}>Salvar</ButtonText>
 					<Icon name="send" color={theme.colors.white} />
 				</OptionButton>
-		<OptionButton onPress={handleDB}>	
-			<ButtonText>DB</ButtonText>
-		</OptionButton>
+			</> : null}
 		</Content>
 	</Container>
 };

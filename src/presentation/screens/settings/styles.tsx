@@ -8,10 +8,12 @@ import { Modalize } from "react-native-modalize";
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  padding: 0 ${RFValue(16)}px;
+
 `;
 
-export const Content = styled.ScrollView``
+export const Content = styled.ScrollView`
+  padding: 0 ${RFValue(16)}px;
+`;
 
 
 export const OptionButton = styled.TouchableOpacity.attrs({

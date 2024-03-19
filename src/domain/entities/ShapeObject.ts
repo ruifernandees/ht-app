@@ -5,5 +5,6 @@ export class ShapeObject {
     public color: string,
     public shape: string,
     public rotation: number[],
+    public index: number,
   ) {}
 }

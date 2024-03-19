@@ -59,7 +59,7 @@ export const options = [
   { label: 'Cone', value: 'cone' },
   { label: 'Tetraedro', value: 'tetrahedron' },
   { label: 'Dodecaedro', value: 'dodecahedron' },
-  { label: 'Cubo', value: 'cube' },
+  { label: 'Cubo', value: 'box' },
   { label: 'Nó', value: 'torusKnot' }
 ]
 
