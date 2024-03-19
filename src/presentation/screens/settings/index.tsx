@@ -1,6 +1,8 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ButtonText, Container,  Icon, Input, Modal, ModalContent, OptionButton, Subtitle, Title } from './styles';
 import { Header } from '@/presentation/components/Header';
+import database from '@react-native-firebase/database';
+
 import { useAuthenticationStore } from '@/presentation/stores/authentication';
 import { AccessibilityInfo } from 'react-native';
 
@@ -37,6 +39,11 @@ export const SettingsScreen: React.FC = () => {
 
 
 
+	useEffect(() => {
+		const reference = database().ref('/users/123');
+
+		console.log({reference})
+	}, [])
 
 	const {
     handleSubmit,
@@ -46,6 +53,7 @@ export const SettingsScreen: React.FC = () => {
   } = useForm<IFieldValues>({
 		resolver: zodResolver(FormSchema)
 	});
+	
 
 	async function handleLogout() {
 		setIsLoading(true);

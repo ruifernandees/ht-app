@@ -5,6 +5,7 @@ describe('FirebaseUserAdapter', () => {
 
   it('Should adapt object from firebase to domain', () => {
     expect(new FirebaseUserAdapter(firebaseMockData)).toEqual({
+      id: 'RmCwEpg7YMeU4ihCKTTNYcK1zfN2',
       email: 'john.doe@handtalk.com',
       name: 'John Doe',
     })
@@ -18,7 +19,6 @@ describe('FirebaseUserAdapter', () => {
         email: null, 
       }
     };
-    console.log({firebaseData1: firebaseData})
     expect(() => new FirebaseUserAdapter(firebaseData)).toThrow()
   });
 
@@ -30,7 +30,6 @@ describe('FirebaseUserAdapter', () => {
         displayName: null, 
       }
     };
-    console.log({firebaseData2: firebaseData})
     expect(() => new FirebaseUserAdapter(firebaseData)).toThrow()
   });
 });
