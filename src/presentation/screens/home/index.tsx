@@ -8,20 +8,8 @@ import { AppConfig } from '@/domain/entities/AppConfig';
 
 
 export const HomeScreen: React.FC = () => {
-	const {user} = useAuthenticationStore()
-	const {fetchObjects, objects} = useObjectsStore()
+	const {objects} = useObjectsStore()
 	const [appConfig, setAppConfig] = useState<AppConfig>();
-
-	useEffect(() => {
-		if (user) {
-			(async () => {
-				const a = await fetchObjects(user);
-				console.log({fetch: a})
-
-			})()
-		}
-	}, [user]);
-
 
 	useEffect(() => {
 		(async () => {
