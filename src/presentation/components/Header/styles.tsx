@@ -3,7 +3,9 @@ import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 export const HeaderContainer = styled.View`
-  padding: ${RFValue(12)}px ${RFValue(16)}px;
+  padding: ${RFValue(18)}px ${RFValue(16)}px;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const Title = styled.Text`
