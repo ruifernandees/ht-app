@@ -5,7 +5,6 @@ import { useObjectsStore } from '@/presentation/stores/objects';
 import { useAuthenticationStore } from '@/presentation/stores/authentication';
 
 export const HomeScreen: React.FC = () => {
-
 	const {user} = useAuthenticationStore()
 	const {fetchObjects, objects} = useObjectsStore()
 
@@ -26,6 +25,11 @@ export const HomeScreen: React.FC = () => {
 		'box': <boxGeometry />,
 		'torusKnot': <torusKnotGeometry />
 	};
+	const positions = [
+		[0, 2.5, 0],
+		[0, 0, -2],
+		[0, -2, 0]
+	];
 	return <Container>
 		<Canvas>
 			<ambientLight />
@@ -34,11 +38,6 @@ export const HomeScreen: React.FC = () => {
 			<pointLight position={[1, -3, 1]} />
 			{objects.map((_object, index)=> {
 				console.log('👽', _object)
-				const positions = [
-					[0, 2.5, 0],
-					[0, 0, -2],
-					[0, -2, 0]
-				];
 				return <mesh 
 					position={positions[index]} 
 					rotation={_object.rotation}

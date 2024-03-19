@@ -54,16 +54,13 @@ export const SettingsScreen: React.FC = () => {
 		const object = objects.find(object => {
 			return object.id === _selectedObject
 		})
-		if (object){ 
-			AccessibilityInfo
-				.announceForAccessibility(`
-					Você selecionou o ${object.name}. Arraste para baixo para configuração.
-				`);
-			console.log({object})
-			setSelectedObject(object);
-
-
-		}
+		if (!object) return
+		AccessibilityInfo
+			.announceForAccessibility(`
+				Você selecionou o ${object.name}. Arraste para baixo para configuração.
+			`);
+		console.log({object})
+		setSelectedObject(object);
   };
 
 	useEffect(() => fillFormByObject(selectedObject), [selectedObject])
@@ -78,7 +75,7 @@ export const SettingsScreen: React.FC = () => {
 
 
 
-	async function handleDB(data: IFieldValues) {
+	async function handleObjectConfig(data: IFieldValues) {
 		if (!selectedObject || !user) return;
 		setIsLoading(true);
 		try {
@@ -256,7 +253,7 @@ export const SettingsScreen: React.FC = () => {
 					}}
 				/>
 
-				<OptionButton onPress={handleSubmit(handleDB)} color={theme.colors.blue}>	
+				<OptionButton onPress={handleSubmit(handleObjectConfig)} color={theme.colors.blue}>	
 					<ButtonText color={theme.colors.white}>Salvar</ButtonText>
 					<Icon name="send" color={theme.colors.white} />
 				</OptionButton>

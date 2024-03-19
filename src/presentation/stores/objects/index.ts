@@ -1,10 +1,13 @@
 import { create }from "zustand"
-import database from '@react-native-firebase/database';
+
 import { IObjectsStoreData, IObjectsStoreProps } from './props';
 import { EObjectId } from '@/domain/enums/EObjectId';
 import { theme } from '@/global/theme';
 import { options } from '@/presentation/screens/settings/data';
 import { orderByName } from '@/global/helpers/orderByName';
+import { fetchShapeObjectsByUserUseCase } from "@/main/usecases/fetchObjectsByUserUseCase";
+import { storeObjectsUseCase } from "@/main/usecases/storeObjectsUseCase";
+import { sortObjects } from "@/global/helpers/orderObjects";
 
 const initialData: IObjectsStoreData = {
   objects: [
@@ -40,9 +43,7 @@ export const useObjectsStore = create<IObjectsStoreProps>(
   (set, get) => ({
     ...initialData,
     fetchObjects: async (user) => {
-      const reference = database().ref(`/users/${user.id}`);
-      const result = (await reference.once('value')).val();
-      const objects = result.objects.sort((a,b) => orderByName(a.id, b.id));
+      const objects = await fetchShapeObjectsByUserUseCase.execute(user);
       set({
         objects
       })
@@ -53,20 +54,14 @@ export const useObjectsStore = create<IObjectsStoreProps>(
       const previousObject = objects.findIndex(_object => _object.id === object.id)
       if (previousObject !== -1) { 
         const objectsWithoutDesiredObject = objects.filter(_object => _object.id !== object.id);
-        const newObjectsRecord = [
+        const newObjectsRecord = sortObjects([
           ...objectsWithoutDesiredObject,
           object
-        ]
+        ]);
         set({
           objects: newObjectsRecord
         });
-        console.log('BEFORE REF', newObjectsRecord)
-        const reference = database().ref(`/users/${user.id}`);
-        const a = await reference.set({
-          ...user,
-          objects: newObjectsRecord.sort((a,b) => orderByName(a.id, b.id)),
-        })
-        console.log({a, reference})
+        await storeObjectsUseCase.execute(newObjectsRecord, user);
       }
     }
   })

@@ -7,5 +7,5 @@ export interface IObjectsStoreData {
 
 export interface IObjectsStoreProps extends IObjectsStoreData {
   setObject: (object: ShapeObject, user: User) => Promise<void>;
-  fetchObjects: (user: User) => Promise<Object[]>;
+  fetchObjects: (user: User) => Promise<ShapeObject[]>;
 }
