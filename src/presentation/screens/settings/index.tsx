@@ -223,51 +223,34 @@ export const SettingsScreen: React.FC = () => {
 						)}
 					/>
 
-					<Controller
-						control={control}
-						name='rotationX'
-						render={({field: {onBlur, onChange, value}}) => (
-							<InputContainer >
-								<Subtitle>Rotação em X</Subtitle>
-								<Input placeholder='Rotação em X' onChangeText={onChange} value={value} onBlur={onBlur} />
-								{errors.rotationX?.message
-									? <ErrorText >{errors.rotationX?.message}</ErrorText>
-									:	null
-								}
-							</InputContainer>
-						)}
-					/>
+					{
+						inputs.map(({name, ...input}) => {
+							const inputName = name as keyof IFieldValues;
+							return <Controller
+								control={control}
+								name={inputName}
+								key={inputName}
 
-					<Controller
-						control={control}
-						name='rotationY'
-						render={({field: {onBlur, onChange, value}}) => (
-							<InputContainer >
-								<Subtitle>Rotação em Y</Subtitle>
-								<Input placeholder='Rotação em Y' onChangeText={onChange} value={value} onBlur={onBlur} />
-								{errors.rotationY?.message
-									? <ErrorText >{errors.rotationY?.message}</ErrorText>
-									:	null
-								}
-							</InputContainer>
-						)}
-					/>
-
-					<Controller
-						control={control}
-						name='rotationZ'
-						render={({field: {onBlur, onChange, value}}) => (
-							<InputContainer >
-								<Subtitle>Rotação em Z</Subtitle>
-								<Input placeholder='Rotação em Z' onChangeText={onChange} value={value} onBlur={onBlur} />
-								{errors.rotationZ?.message
-									? <ErrorText >{errors.rotationZ?.message}</ErrorText>
-									:	null
-								}
-							</InputContainer>
-						)}
-					/>
-
+								render={({field: {onBlur, onChange, value}}) => (
+									<InputContainer >
+										<Subtitle>{input.placeholder}</Subtitle>
+										<Input
+											{...input}
+											onChangeText={value => {
+												onChange(value.replace(/\s+/g, '').replace(',', '.'));
+											}}
+											value={value}
+											onBlur={onBlur}
+										/>
+										{errors[inputName]?.message
+											? <ErrorText >{errors[inputName]?.message}</ErrorText>
+											:	null
+										}
+									</InputContainer>
+								)}
+							/>;
+						})
+					}
 					<OptionButton onPress={handleSubmit(handleObjectConfig)} color={theme.colors.blue}>
 						<ButtonText color={theme.colors.white}>Salvar</ButtonText>
 						<Icon name='send' color={theme.colors.white} />

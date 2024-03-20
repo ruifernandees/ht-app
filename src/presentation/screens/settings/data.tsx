@@ -1,35 +1,29 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {EObjectId} from '@/domain/enums/EObjectId';
 import {hexRegex, validateHexColor} from '@/global/helpers/validateHexColor';
+import {type KeyboardTypeOptions} from 'react-native';
 import * as zod from 'zod';
 
 type TAutoCapitalize = 'none' | 'sentences' | 'words' | 'characters' | undefined;
 
 export const inputs = [
 	{
-		placeholder: 'Cor do objeto',
-		name: 'color',
-		autoCapitalize: 'none' as TAutoCapitalize,
-	},
-	{
 		placeholder: 'Rotação X do objeto',
 		name: 'rotationX',
 		autoCapitalize: 'none' as TAutoCapitalize,
+		keyboardType: 'numeric' as KeyboardTypeOptions,
 	},
 	{
 		placeholder: 'Rotação Y do objeto',
 		name: 'rotationY',
 		autoCapitalize: 'none' as TAutoCapitalize,
+		keyboardType: 'numeric' as KeyboardTypeOptions,
 	},
 	{
 		placeholder: 'Rotação Z do objeto',
 		name: 'rotationZ',
 		autoCapitalize: 'none' as TAutoCapitalize,
-	},
-	{
-		placeholder: 'Forma do objeto',
-		name: 'shape',
-		autoCapitalize: 'none' as TAutoCapitalize,
+		keyboardType: 'numeric' as KeyboardTypeOptions,
 	},
 ];
 
@@ -48,14 +42,36 @@ export const FormSchema = zod.object({
 		.string({required_error: SHAPE_REQUIRED_MESSAGE})
 		.min(1, SHAPE_REQUIRED_MESSAGE),
 	rotationX: zod
+		.coerce
 		.string({required_error: ROTATION_X_REQUIRED_MESSAGE})
-		.min(1, ROTATION_X_REQUIRED_MESSAGE),
+		.min(1, ROTATION_X_REQUIRED_MESSAGE)
+		.refine(value => !isNaN(Number(value)), 'Informe um número válido')
+		.transform(value => Number(value)),
+	// .refine(val => {
+	// 	console.log(`[${val}]`, val, String(val).length, 'X');
+	// 	return String(val).length !== 0;
+	// }, 'asda' + ROTATION_X_REQUIRED_MESSAGE),
 	rotationY: zod
+		.coerce
 		.string({required_error: ROTATION_Y_REQUIRED_MESSAGE})
-		.min(1, ROTATION_Y_REQUIRED_MESSAGE),
+		.min(1, ROTATION_Y_REQUIRED_MESSAGE)
+
+		.refine(value => !isNaN(Number(value)), 'Informe um número válido')
+		.transform(value => Number(value)),
+	// .refine(val => {
+	// 	console.log(String(val), val, String(val).length, 'Y');
+	// 	return String(val).length !== 0;
+	// }, 'asda' + ROTATION_Y_REQUIRED_MESSAGE),
 	rotationZ: zod
+		.coerce
 		.string({required_error: ROTATION_Z_REQUIRED_MESSAGE})
-		.min(1, ROTATION_Z_REQUIRED_MESSAGE),
+		.min(1, ROTATION_Z_REQUIRED_MESSAGE)
+		.refine(value => !isNaN(Number(value)), 'Informe um número válido')
+		.transform(value => Number(value)),
+	// .refine(val => {
+	// 	console.log(String(val), val, String(val).length, 'Z');
+	// 	return String(val).length !== 0;
+	// }, 'asda' + ROTATION_Z_REQUIRED_MESSAGE),
 });
 
 export const options = [
