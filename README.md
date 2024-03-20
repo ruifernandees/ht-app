@@ -52,9 +52,17 @@ yarn android
 ## 🧪 Testes Automatizados
 - Foram feitos 3 testes unitários:
   - No componente Header (com a React Testing Library), para testar seus componentes internos e eventos com fireEvent;
-  - Na função validateHexColor para verificar a validade de valores hexadecimais;
-  - No FirebaseUserAdapter para testar a conversão do objeto vindo do Firebase para a entidade User.
-- Para rodar os testes, basta executar o comando:
-```sh
-yarn test
-```
+ 
+## 🗒️ Observações
+- Configurei as permissões de Read & Write no Real Time Database para acesso geral, para fins de testes
+- O aplicativo foi configurado para receber atualização do Remote Config com um offset de 1 minuto
+
+## 👤 Contas de Login
+### John Doe
+- Email: john.doe@handtalk.com
+- Senha: ht123456
+
+### Peter Doe
+- Email: peter.doe@handtalk.com
+- Senha: peterht123
+  
