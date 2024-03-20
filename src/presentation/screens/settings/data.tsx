@@ -34,25 +34,27 @@ export const inputs = [
 
 const COLOR_REQUIRED_MESSAGE = 'Informe a cor em Hexadecimal'
 const SHAPE_REQUIRED_MESSAGE = 'Informe a forma do objeto'
-const ROTATION_REQUIRED_MESSAGE = 'Informe a rotação do objeto'
+const ROTATION_X_REQUIRED_MESSAGE = 'Informe a rotação X do objeto'
+const ROTATION_Y_REQUIRED_MESSAGE = 'Informe a rotação Y do objeto'
+const ROTATION_Z_REQUIRED_MESSAGE = 'Informe a rotação Z do objeto'
 
 export const FormSchema = zod.object({
   color: zod
     .string({ required_error: COLOR_REQUIRED_MESSAGE })
     .min(1, COLOR_REQUIRED_MESSAGE)
-    .refine(validateHexColor, 'A cor deve estar em hexadecimal'),
+    .refine(validateHexColor, 'A cor deve ser um hexadecimal válido'),
   shape: zod
     .string({ required_error: SHAPE_REQUIRED_MESSAGE })
     .min(1, SHAPE_REQUIRED_MESSAGE),
   rotationX: zod
-    .string({ required_error: ROTATION_REQUIRED_MESSAGE })
-    .min(1, ROTATION_REQUIRED_MESSAGE),
+    .string({ required_error: ROTATION_X_REQUIRED_MESSAGE })
+    .min(1, ROTATION_X_REQUIRED_MESSAGE),
   rotationY: zod
-    .string({ required_error: ROTATION_REQUIRED_MESSAGE })
-    .min(1, ROTATION_REQUIRED_MESSAGE),
+    .string({ required_error: ROTATION_Y_REQUIRED_MESSAGE })
+    .min(1, ROTATION_Y_REQUIRED_MESSAGE),
   rotationZ: zod
-    .string({ required_error: ROTATION_REQUIRED_MESSAGE })
-    .min(1, ROTATION_REQUIRED_MESSAGE),
+    .string({ required_error: ROTATION_Z_REQUIRED_MESSAGE })
+    .min(1, ROTATION_Z_REQUIRED_MESSAGE),
 });
 
 export const options = [

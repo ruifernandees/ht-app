@@ -66,11 +66,15 @@ export const SettingsScreen: React.FC = () => {
 	useEffect(() => fillFormByObject(selectedObject), [selectedObject])
 
 	useFocusEffect(useCallback(() => {
-		AccessibilityInfo
-			.announceForAccessibility(`
-				Você está na tela de configurações. 
-				Abaixo do título "Configurações" existem opções de objetos dispostas horizontalmente que você pode selecionar para configurar.
-			`);
+		console.log('A')
+		setTimeout(() => {
+			AccessibilityInfo
+				.announceForAccessibility(`
+					Você está na tela de configurações. 
+					Abaixo do título "Configurações" existem opções de objetos dispostas horizontalmente que você pode selecionar para configurar.
+					Você pode rolar a página e, ao final, terá o botão para salvar as alterações.
+				`);
+		}, 3000)
 	}, []));
 
 
@@ -86,7 +90,10 @@ export const SettingsScreen: React.FC = () => {
 				shape: data.shape,
 			}, user);
 			const message = `${selectedObject.name} atualizado com sucesso!`;
-			AccessibilityInfo.announceForAccessibility(`${message} Você foi redirecionado para a tela de renderização dos objetos.`);
+			setTimeout(() => {
+				AccessibilityInfo
+					.announceForAccessibility(`${message} Você foi redirecionado para a tela de renderização dos objetos.`);
+			}, 2000);
 			Snackbar.show({
 				text: message,
 				duration: 5000,
@@ -135,6 +142,25 @@ export const SettingsScreen: React.FC = () => {
 		}
 	}
 
+	useEffect(() => {
+		let message = ` `
+		Object.entries(errors).map(([key, value])=> {
+			const _errors = errors as {[key: string]: {message: string}};
+			if (_errors[key]?.message) {
+				message += _errors[key].message + '. ';
+			}
+		})
+		console.log(message)
+		if (message) {
+			setTimeout(() => {
+				AccessibilityInfo
+					.announceForAccessibility(`O formulário retornou os seguintes erros: ${message}`)
+
+			}, 2000)
+		}
+
+	}, [errors]);
+
 	return <Container>
 		{isLoading ? <LoadingWithOverlay/>: null}
 		<Content>
@@ -168,6 +194,7 @@ export const SettingsScreen: React.FC = () => {
 								<InputHorizontalContainer>
 									<Input 
 										placeholder="Cor do Objeto" 
+										accessibilityHint="Informe a cor em hexadecimal com um cerquilha no começo"
 										onChangeText={onChange} 
 										value={value} 
 										onBlur={onBlur} 
@@ -209,7 +236,7 @@ export const SettingsScreen: React.FC = () => {
 						return (
 							<InputContainer >
 								<Subtitle>Rotação em X</Subtitle>
-								<Input placeholder="Rotação" onChangeText={onChange} value={value} onBlur={onBlur} />
+								<Input placeholder="Rotação em X" onChangeText={onChange} value={value} onBlur={onBlur} />
 								{errors['rotationX']?.message ?
 									<ErrorText >{errors['rotationX']?.message}</ErrorText> 
 									:	null 
@@ -226,7 +253,7 @@ export const SettingsScreen: React.FC = () => {
 						return (
 							<InputContainer >
 								<Subtitle>Rotação em Y</Subtitle>
-								<Input placeholder="Rotação" onChangeText={onChange} value={value} onBlur={onBlur} />
+								<Input placeholder="Rotação em Y" onChangeText={onChange} value={value} onBlur={onBlur} />
 								{errors['rotationY']?.message ?
 									<ErrorText >{errors['rotationY']?.message}</ErrorText> 
 									:	null 
@@ -243,7 +270,7 @@ export const SettingsScreen: React.FC = () => {
 						return (
 							<InputContainer >
 								<Subtitle>Rotação em Z</Subtitle>
-								<Input placeholder="Rotação" onChangeText={onChange} value={value} onBlur={onBlur} />
+								<Input placeholder="Rotação em Z" onChangeText={onChange} value={value} onBlur={onBlur} />
 								{errors['rotationZ']?.message ?
 									<ErrorText >{errors['rotationZ']?.message}</ErrorText> 
 									:	null 
