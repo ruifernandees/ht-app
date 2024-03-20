@@ -11,6 +11,8 @@
 - react-native-responsive-fontsize (Responsividade para fontes, margens e paddings)
 - styled-components (Estilização de componentes React)
 - react-navigation v6 (Navegação dentro do app: Stack e Tab)
+- reactotron (debug da aplicação)
+- eslint e prettier (padronização de código)
 
 ## ⬇ Download
 - O download está disponível na seção de Assets da página da release v1.0.0: https://github.com/ruifernandees/ht-app/releases/tag/v1.0.0
@@ -55,7 +57,17 @@ yarn android
 ## 🧪 Testes Automatizados
 - Foram feitos 3 testes unitários:
   - No componente Header (com a React Testing Library), para testar seus componentes internos e eventos com fireEvent;
- 
+
+## 💻 Padronização de código
+- Foi utilizado o Airbnb Standard no projeto, com as bibliotecas ESLint e Prettier. Para executar cada um, basta rodar, respectivamente:
+```sh
+# ESLint
+yarn lint
+
+# Prettier
+yarn lint:prettier
+```
+
 ## 🗒️ Observações
 - Configurei as permissões de Read & Write no RealTime Database como acesso público, para fins de testes
 - O aplicativo foi configurado para receber atualização do Remote Config com um offset de 1 minuto
