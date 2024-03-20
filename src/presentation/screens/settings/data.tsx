@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { EObjectId } from '@/domain/enums/EObjectId'
-import { hexRegex, validateHexColor } from '@/global/helpers/validateHexColor'
-import { type KeyboardTypeOptions } from 'react-native'
-import * as zod from 'zod'
+import { type KeyboardTypeOptions } from 'react-native';
+import * as zod from 'zod';
+import { EObjectId } from '@/domain/enums/EObjectId';
+import { validateHexColor } from '@/global/helpers/validateHexColor';
 
-type TAutoCapitalize = 'none' | 'sentences' | 'words' | 'characters' | undefined
+type TAutoCapitalize =
+  | 'none'
+  | 'sentences'
+  | 'words'
+  | 'characters'
+  | undefined;
 
 export const inputs = [
   {
@@ -25,13 +30,13 @@ export const inputs = [
     autoCapitalize: 'none' as TAutoCapitalize,
     keyboardType: 'numeric' as KeyboardTypeOptions,
   },
-]
+];
 
-const COLOR_REQUIRED_MESSAGE = 'Informe a cor em Hexadecimal'
-const SHAPE_REQUIRED_MESSAGE = 'Informe a forma do objeto'
-const ROTATION_X_REQUIRED_MESSAGE = 'Informe a rotação X do objeto'
-const ROTATION_Y_REQUIRED_MESSAGE = 'Informe a rotação Y do objeto'
-const ROTATION_Z_REQUIRED_MESSAGE = 'Informe a rotação Z do objeto'
+const COLOR_REQUIRED_MESSAGE = 'Informe a cor em Hexadecimal';
+const SHAPE_REQUIRED_MESSAGE = 'Informe a forma do objeto';
+const ROTATION_X_REQUIRED_MESSAGE = 'Informe a rotação X do objeto';
+const ROTATION_Y_REQUIRED_MESSAGE = 'Informe a rotação Y do objeto';
+const ROTATION_Z_REQUIRED_MESSAGE = 'Informe a rotação Z do objeto';
 
 export const FormSchema = zod.object({
   color: zod
@@ -65,7 +70,7 @@ export const FormSchema = zod.object({
       'Informe um número válido para a rotação Z'
     )
     .transform((value) => Number(value)),
-})
+});
 
 export const options = [
   { label: 'Cone', value: 'cone' },
@@ -73,10 +78,10 @@ export const options = [
   { label: 'Dodecaedro', value: 'dodecahedron' },
   { label: 'Cubo', value: 'box' },
   { label: 'Nó', value: 'torusKnot' },
-]
+];
 
 export const ObjectLabelsMapper: Record<string, string> = {
   [EObjectId.OBJECT_A]: 'Objeto A',
   [EObjectId.OBJECT_B]: 'Objeto B',
   [EObjectId.OBJECT_C]: 'Objeto C',
-}
+};

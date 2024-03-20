@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import * as zod from 'zod'
+import * as zod from 'zod';
 
-type TAutoCapitalize = 'none' | 'sentences' | 'words' | 'characters' | undefined
+type TAutoCapitalize =
+  | 'none'
+  | 'sentences'
+  | 'words'
+  | 'characters'
+  | undefined;
 
 export const inputs = [
   {
@@ -15,10 +20,10 @@ export const inputs = [
     secureTextEntry: true,
     autoCapitalize: 'none' as TAutoCapitalize,
   },
-]
+];
 
-const EMAIL_REQUIRED_MESSAGE = 'Informe o e-mail'
-const PASSWORD_REQUIRED_MESSAGE = 'Informe a senha'
+const EMAIL_REQUIRED_MESSAGE = 'Informe o e-mail';
+const PASSWORD_REQUIRED_MESSAGE = 'Informe a senha';
 
 export const FormSchema = zod.object({
   email: zod
@@ -28,4 +33,4 @@ export const FormSchema = zod.object({
   password: zod
     .string({ required_error: PASSWORD_REQUIRED_MESSAGE })
     .min(1, PASSWORD_REQUIRED_MESSAGE),
-})
+});

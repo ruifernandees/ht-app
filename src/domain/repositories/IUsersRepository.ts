@@ -1,5 +1,6 @@
-import { IAuthenticationDTO } from "../dtos/IAuthenticationDTO";
-import { User } from "../entities/User";
+/* eslint-disable no-unused-vars */
+import { IAuthenticationDTO } from '../dtos/IAuthenticationDTO';
+import { User } from '../entities/User';
 
 export interface IUsersRepository {
   authenticate(params: IAuthenticationDTO): Promise<User>;

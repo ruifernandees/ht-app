@@ -1,5 +1,6 @@
-import React, { type ReactNode } from 'react'
-import { HeaderContainer, Title } from './styles'
+/* eslint-disable react/require-default-props */
+import React, { type ReactNode } from 'react';
+import { HeaderContainer, Title } from './styles';
 
 export const Header: React.FC<{ title: string; iconAtEnd?: ReactNode }> = ({
   title,
@@ -9,4 +10,4 @@ export const Header: React.FC<{ title: string; iconAtEnd?: ReactNode }> = ({
     <Title testID="header-title">{title}</Title>
     {iconAtEnd}
   </HeaderContainer>
-)
+);

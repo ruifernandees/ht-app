@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { BottomTabCollection } from './bottom-tab-bar/index.routes'
-import { AuthenticationScreen } from '@/presentation/screens/authentication'
-import { EAppStackRoutes } from './mappers/EAppStackRoutes'
-import { AuthenticationProvider } from '@/presentation/provider/AuthenticationProvider'
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { BottomTabCollection } from './bottom-tab-bar/index.routes';
+import { AuthenticationScreen } from '@/presentation/screens/authentication';
+import { EAppStackRoutes } from './mappers/EAppStackRoutes';
+import { AuthenticationProvider } from '@/presentation/provider/AuthenticationProvider';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
 export function MainRouteCollection() {
   return (
@@ -27,5 +27,5 @@ export function MainRouteCollection() {
         </Stack.Navigator>
       </AuthenticationProvider>
     </NavigationContainer>
-  )
+  );
 }

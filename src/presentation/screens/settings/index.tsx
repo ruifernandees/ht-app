@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useState } from 'react';
+import { AccessibilityInfo } from 'react-native';
+import Snackbar from 'react-native-snackbar';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RadioButton, SegmentedButtons } from 'react-native-paper';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   ButtonText,
   ColorDisplay,
@@ -13,68 +20,62 @@ import {
   SegmentedButtonsContainer,
   Subtitle,
   Title,
-} from './styles'
-import { Header } from '@/presentation/components/Header'
+  Divider,
+} from './styles';
+import { Header } from '@/presentation/components/Header';
 
-import { useAuthenticationStore } from '@/presentation/stores/authentication'
-import { AccessibilityInfo } from 'react-native'
+import { useAuthenticationStore } from '@/presentation/stores/authentication';
 
-import Snackbar from 'react-native-snackbar'
-import { theme } from '@/global/theme'
-import { LoadingWithOverlay } from '@/presentation/components/LoadingWithOverlay'
-import { FormSchema, ObjectLabelsMapper, inputs, options } from './data'
-import { type IFieldValues } from './props'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Divider, RadioButton, SegmentedButtons } from 'react-native-paper'
-import { useObjectsStore } from '@/presentation/stores/objects'
-import { type ShapeObject } from '@/domain/entities/ShapeObject'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { validateHexColor } from '@/global/helpers/validateHexColor'
-import { EAppBottomTabRoutes } from '@/main/routes/mappers/EAppBottomTabRoutes'
+import { theme } from '@/global/theme';
+import { LoadingWithOverlay } from '@/presentation/components/LoadingWithOverlay';
+import { FormSchema, ObjectLabelsMapper, inputs, options } from './data';
+import { type IFieldValues } from './props';
+import { useObjectsStore } from '@/presentation/stores/objects';
+import { type ShapeObject } from '@/domain/entities/ShapeObject';
+import { validateHexColor } from '@/global/helpers/validateHexColor';
+import { EAppBottomTabRoutes } from '@/main/routes/mappers/EAppBottomTabRoutes';
 
 export const SettingsScreen: React.FC = () => {
-  const { user, logout } = useAuthenticationStore()
-  const [isLoading, setIsLoading] = useState(false)
+  const { user, logout } = useAuthenticationStore();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { objects, setObject } = useObjectsStore()
-  const [selectedObject, setSelectedObject] = useState<ShapeObject>(objects[0])
+  const { objects, setObject } = useObjectsStore();
+  const [selectedObject, setSelectedObject] = useState<ShapeObject>(objects[0]);
   const {
     handleSubmit,
     control,
     setValue,
-    reset,
     formState: { errors },
   } = useForm<IFieldValues>({
     resolver: zodResolver(FormSchema),
-  })
+  });
 
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
 
   const fillFormByObject = (object: ShapeObject) => {
-    setValue('color', object.color)
-    setValue('shape', object.shape)
-    const [rotationX, rotationY, rotationZ] = object.rotation
-    setValue('rotationX', String(rotationX))
-    setValue('rotationY', String(rotationY))
-    setValue('rotationZ', String(rotationZ))
-  }
+    setValue('color', object.color);
+    setValue('shape', object.shape);
+    const [rotationX, rotationY, rotationZ] = object.rotation;
+    setValue('rotationX', String(rotationX));
+    setValue('rotationY', String(rotationY));
+    setValue('rotationZ', String(rotationZ));
+  };
 
   const handleObject = (_selectedObject: string) => {
-    const object = objects.find((object) => object.id === _selectedObject)
+    const object = objects.find((_object) => _object.id === _selectedObject);
     if (!object) {
-      return
+      return;
     }
 
     AccessibilityInfo.announceForAccessibility(`
 				Você selecionou o ${object.name}. Arraste para baixo para configuração.
-			`)
-    setSelectedObject(object)
-  }
+			`);
+    setSelectedObject(object);
+  };
 
   useEffect(() => {
-    fillFormByObject(selectedObject)
-  }, [selectedObject])
+    fillFormByObject(selectedObject);
+  }, [selectedObject]);
 
   useFocusEffect(
     useCallback(() => {
@@ -83,17 +84,17 @@ export const SettingsScreen: React.FC = () => {
 					Você está na tela de configurações. 
 					Abaixo do título "Configurações" existem opções de objetos dispostas horizontalmente que você pode selecionar para configurar.
 					Você pode rolar a página e, ao final, terá o botão para salvar as alterações.
-				`)
-      }, 3000)
+				`);
+      }, 3000);
     }, [])
-  )
+  );
 
   async function handleObjectConfig(data: IFieldValues) {
     if (!selectedObject || !user) {
-      return
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       await setObject(
         {
@@ -107,74 +108,71 @@ export const SettingsScreen: React.FC = () => {
           shape: data.shape,
         },
         user
-      )
-      const message = `${selectedObject.name} atualizado com sucesso!`
+      );
+      const message = `${selectedObject.name} atualizado com sucesso!`;
       setTimeout(() => {
         AccessibilityInfo.announceForAccessibility(
           `${message} Você foi redirecionado para a tela de renderização dos objetos.`
-        )
-      }, 2000)
+        );
+      }, 2000);
       Snackbar.show({
         text: message,
         duration: 5000,
         textColor: theme.colors.white,
         fontFamily: theme.typography.fontFamily.inter.bold,
         backgroundColor: theme.colors.darkGreen,
-      })
-      navigate(EAppBottomTabRoutes.Home as never)
+      });
+      navigate(EAppBottomTabRoutes.Home as never);
     } catch (error) {
-      const message = 'Erro ao atualizar o objeto'
-      AccessibilityInfo.announceForAccessibility(message)
+      const message = 'Erro ao atualizar o objeto';
+      AccessibilityInfo.announceForAccessibility(message);
       Snackbar.show({
         text: message,
         duration: 5000,
         textColor: theme.colors.white,
         fontFamily: theme.typography.fontFamily.inter.bold,
         backgroundColor: theme.colors.red,
-      })
-      console.error('📚', error)
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   async function handleLogout() {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      await logout()
+      await logout();
 
-      const message = `Até mais, ${user?.name}!`
-      AccessibilityInfo.announceForAccessibility(message)
+      const message = `Até mais, ${user?.name}!`;
+      AccessibilityInfo.announceForAccessibility(message);
       Snackbar.show({
         text: message,
         duration: 5000,
         textColor: theme.colors.white,
         fontFamily: theme.typography.fontFamily.inter.bold,
         backgroundColor: theme.colors.darkBlue,
-      })
-    } catch (err) {
-      console.error(err)
+      });
     } finally {
-      setIsLoading(true)
+      setIsLoading(true);
     }
   }
 
   useEffect(() => {
-    let message = ''
-    Object.entries(errors).forEach(([key, value]) => {
-      const _errors = errors as Record<string, { message: string }>
+    let message = '';
+    Object.entries(errors).forEach(([key]) => {
+      const _errors = errors as Record<string, { message: string }>;
       if (_errors[key]?.message) {
-        message += _errors[key].message + '. '
+        message += `${_errors[key].message  }. `;
       }
-    })
+    });
     if (message) {
       setTimeout(() => {
         AccessibilityInfo.announceForAccessibility(
           `O formulário retornou os seguintes erros: ${message}`
-        )
-      }, 2000)
+        );
+      }, 2000);
     }
-  }, [errors])
+  }, [errors]);
 
   return (
     <Container>
@@ -203,7 +201,7 @@ export const SettingsScreen: React.FC = () => {
         {selectedObject ? (
           <>
             <Title>{ObjectLabelsMapper[selectedObject.id]}</Title>
-            <Divider style={{ marginBottom: 24 }} />
+            <Divider />
             <Controller
               control={control}
               name="color"
@@ -233,7 +231,7 @@ export const SettingsScreen: React.FC = () => {
             <Controller
               control={control}
               name="shape"
-              render={({ field: { onBlur, onChange, value } }) => (
+              render={({ field: { onChange, value } }) => (
                 <RadioButton.Group onValueChange={onChange} value={value}>
                   {options.map((_option) => (
                     <RadioButton.Item
@@ -250,7 +248,7 @@ export const SettingsScreen: React.FC = () => {
             />
 
             {inputs.map(({ name, ...input }) => {
-              const inputName = name as keyof IFieldValues
+              const inputName = name as keyof IFieldValues;
               return (
                 <Controller
                   control={control}
@@ -261,8 +259,8 @@ export const SettingsScreen: React.FC = () => {
                       <Subtitle>{input.placeholder}</Subtitle>
                       <Input
                         {...input}
-                        onChangeText={(value) => {
-                          onChange(value.replace(/\s+/g, '').replace(',', '.'))
+                        onChangeText={(_value) => {
+                          onChange(_value.replace(/\s+/g, '').replace(',', '.'));
                         }}
                         value={value}
                         onBlur={onBlur}
@@ -273,7 +271,7 @@ export const SettingsScreen: React.FC = () => {
                     </InputContainer>
                   )}
                 />
-              )
+              );
             })}
             <OptionButton
               onPress={handleSubmit(handleObjectConfig)}
@@ -286,5 +284,5 @@ export const SettingsScreen: React.FC = () => {
         ) : null}
       </Content>
     </Container>
-  )
-}
+  );
+};

@@ -1,9 +1,9 @@
-import React from 'react'
-import { Feather } from '@expo/vector-icons'
-import { HomeScreen } from '@/presentation/screens/home'
-import { SettingsScreen } from '@/presentation/screens/settings'
-import { EAppBottomTabRoutes } from '../mappers/EAppBottomTabRoutes'
-import { type TIconProps } from './props'
+import React from 'react';
+import { Feather } from '@expo/vector-icons';
+import { HomeScreen } from '@/presentation/screens/home';
+import { SettingsScreen } from '@/presentation/screens/settings';
+import { EAppBottomTabRoutes } from '../mappers/EAppBottomTabRoutes';
+import { type TIconProps } from './props';
 
 export const appBottomTabRoutes = [
   {
@@ -16,4 +16,4 @@ export const appBottomTabRoutes = [
     icon: (props: TIconProps) => <Feather name="settings" {...props} />,
     component: SettingsScreen,
   },
-]
+];

@@ -1,3 +1,5 @@
+/* eslint-disable no-empty-function */
+/* eslint-disable no-unused-vars */
 export class ShapeObject {
   constructor(
     public id: string,
@@ -5,6 +7,6 @@ export class ShapeObject {
     public color: string,
     public shape: string,
     public rotation: number[],
-    public index: number,
+    public index: number
   ) {}
 }

@@ -1,20 +1,21 @@
-import React, { type ReactNode, useEffect, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { Container, LoadingContainer } from './styles'
-import { useObjectsStore } from '@/presentation/stores/objects'
-import { getAppConfigUseCase } from '@/main/usecases/getAppConfigUseCase'
-import { type AppConfig } from '@/domain/entities/AppConfig'
-import { Loading } from '@/presentation/components/Loading'
+/* eslint-disable react/no-unknown-property */
+import React, { type ReactNode, useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Container, LoadingContainer } from './styles';
+import { useObjectsStore } from '@/presentation/stores/objects';
+import { getAppConfigUseCase } from '@/main/usecases/getAppConfigUseCase';
+import { type AppConfig } from '@/domain/entities/AppConfig';
+import { Loading } from '@/presentation/components/Loading';
 
 export const HomeScreen: React.FC = () => {
-  const { objects, isFetching } = useObjectsStore()
-  const [appConfig, setAppConfig] = useState<AppConfig>()
+  const { objects, isFetching } = useObjectsStore();
+  const [appConfig, setAppConfig] = useState<AppConfig>();
 
   useEffect(() => {
-    ;(async () => {
-      setAppConfig(await getAppConfigUseCase.execute())
-    })()
-  }, [])
+    (async () => {
+      setAppConfig(await getAppConfigUseCase.execute());
+    })();
+  }, []);
 
   const options: Record<string, ReactNode> = {
     cone: <coneGeometry />,
@@ -22,12 +23,12 @@ export const HomeScreen: React.FC = () => {
     dodecahedron: <dodecahedronGeometry />,
     box: <boxGeometry />,
     torusKnot: <torusKnotGeometry />,
-  }
+  };
   const positions = [
     [0, 2.5, 0],
     [0, 0, -2],
     [0, -2, 0],
-  ]
+  ];
   return (
     <Container backgroundColor={appConfig?.backgroundHomeColor}>
       {isFetching ? (
@@ -53,5 +54,5 @@ export const HomeScreen: React.FC = () => {
         </Canvas>
       )}
     </Container>
-  )
-}
+  );
+};

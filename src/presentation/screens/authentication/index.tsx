@@ -1,4 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { AccessibilityInfo, Keyboard } from 'react-native';
+import Snackbar from 'react-native-snackbar';
+import { zodResolver } from '@hookform/resolvers/zod';
+import LottieView from 'lottie-react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   Banner,
   ChevronRight,
@@ -8,26 +16,20 @@ import {
   LoginInput,
   MainContainer,
   Title,
-} from './styles'
-import { Controller, useForm } from 'react-hook-form'
-import { FormSchema, inputs } from './data'
-import { AccessibilityInfo, Keyboard } from 'react-native'
-import Snackbar from 'react-native-snackbar'
+} from './styles';
+import { FormSchema, inputs } from './data';
 
-import { type IFieldValues } from './props'
-import { Button } from '@/presentation/components/Button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { theme } from '@/global/theme'
-import { authenticateUserUseCase } from '@/main/usecases/authenticateUserUseCase'
-import LottieView from 'lottie-react-native'
+import { type IFieldValues } from './props';
+import { Button } from '@/presentation/components/Button';
+import { theme } from '@/global/theme';
+import { authenticateUserUseCase } from '@/main/usecases/authenticateUserUseCase';
 
-import PaperPlane from '@/assets/animations/paper.json'
-import { useAuthenticationStore } from '@/presentation/stores/authentication'
-import { useFocusEffect } from '@react-navigation/native'
+import PaperPlane from '@/assets/animations/paper.json';
+import { useAuthenticationStore } from '@/presentation/stores/authentication';
 
 export const AuthenticationScreen: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const animation = useRef<LottieView>(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const animation = useRef<LottieView>(null);
 
   const {
     handleSubmit,
@@ -36,40 +38,40 @@ export const AuthenticationScreen: React.FC = () => {
     formState: { errors },
   } = useForm<IFieldValues>({
     resolver: zodResolver(FormSchema),
-  })
+  });
 
-  const { setUser } = useAuthenticationStore()
+  const { setUser } = useAuthenticationStore();
 
   async function handleLogin(data: IFieldValues) {
-    setIsLoading(true)
-    Keyboard.dismiss()
+    setIsLoading(true);
+    Keyboard.dismiss();
     try {
-      const user = await authenticateUserUseCase.execute(data)
+      const user = await authenticateUserUseCase.execute(data);
       AccessibilityInfo.announceForAccessibility(
         `Seja bem-vindo(a) ${user.name}`
-      )
-      setUser(user)
+      );
+      setUser(user);
     } catch (error) {
       AccessibilityInfo.announceForAccessibility(
         'Erro ao fazer login. Verifique seu e-mail e senha e tente novamente.'
-      )
+      );
       Snackbar.show({
         text: 'Erro! Verifique seu e-mail e senha e tente novamente.',
         duration: 3000,
         textColor: theme.colors.white,
         fontFamily: theme.typography.fontFamily.inter.bold,
         backgroundColor: theme.colors.red,
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   useFocusEffect(
     useCallback(() => {
-      reset()
+      reset();
     }, [])
-  )
+  );
 
   return (
     <MainContainer>
@@ -91,7 +93,7 @@ export const AuthenticationScreen: React.FC = () => {
 
       <Title>Seja bem-vindo(a)!</Title>
       {inputs.map(({ name, ...input }) => {
-        const inputName = name as keyof IFieldValues
+        const inputName = name as keyof IFieldValues;
         return (
           <Controller
             control={control}
@@ -111,12 +113,12 @@ export const AuthenticationScreen: React.FC = () => {
               </InputContainer>
             )}
           />
-        )
+        );
       })}
       <Button.Root onPress={handleSubmit(handleLogin)}>
         <Button.Text>Fazer Login</Button.Text>
         <ChevronRight name="chevron-right" />
       </Button.Root>
     </MainContainer>
-  )
-}
+  );
+};

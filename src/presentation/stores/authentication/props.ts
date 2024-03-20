@@ -1,4 +1,5 @@
-import { User } from "@/domain/entities/User";
+/* eslint-disable no-unused-vars */
+import { User } from '@/domain/entities/User';
 
 export interface IAuthenticationStoreData {
   user?: User;

@@ -1,13 +1,14 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
-import * as React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { appBottomTabRoutes } from './data'
-import { EAppBottomTabRoutes } from '../mappers/EAppBottomTabRoutes'
-import { theme } from '@/global/theme'
-import { BottomNavigation } from 'react-native-paper'
-import { CommonActions } from '@react-navigation/native'
+import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomNavigation } from 'react-native-paper';
+import { CommonActions } from '@react-navigation/native';
+import { appBottomTabRoutes } from './data';
+import { EAppBottomTabRoutes } from '../mappers/EAppBottomTabRoutes';
+import { theme } from '@/global/theme';
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export function BottomTabCollection() {
   return (
@@ -17,9 +18,9 @@ export function BottomTabCollection() {
         tabBarIcon({ color, size }) {
           const screen = appBottomTabRoutes.find(
             (item) => item.name === route.name
-          )
-          const icon = screen?.icon({ color, size })
-          return icon
+          );
+          const icon = screen?.icon({ color, size });
+          return icon;
         },
         tabBarActiveTintColor: theme.colors.blue,
         tabBarInactiveTintColor: theme.colors.gray,
@@ -34,28 +35,28 @@ export function BottomTabCollection() {
               type: 'tabPress',
               target: route.key,
               canPreventDefault: true,
-            })
+            });
 
             if (event.defaultPrevented) {
-              preventDefault()
+              preventDefault();
             } else {
               navigation.dispatch({
                 ...CommonActions.navigate(route.name, route.params),
                 target: state.key,
-              })
+              });
             }
           }}
           renderIcon={({ route, focused, color }) => {
-            const { options } = descriptors[route.key]
+            const { options } = descriptors[route.key];
             if (options.tabBarIcon) {
               return options.tabBarIcon({
                 focused,
                 color,
                 size: 24,
-              })
+              });
             }
 
-            return null
+            return null;
           }}
           getLabelText={({ route }) => route.name}
         />
@@ -69,5 +70,5 @@ export function BottomTabCollection() {
         />
       ))}
     </Tab.Navigator>
-  )
+  );
 }

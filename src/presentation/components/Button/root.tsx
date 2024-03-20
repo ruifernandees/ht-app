@@ -1,6 +1,6 @@
-import { theme } from '@/global/theme'
-import { RFValue } from 'react-native-responsive-fontsize'
-import styled from 'styled-components/native'
+import { RFValue } from 'react-native-responsive-fontsize';
+import styled from 'styled-components/native';
+import { theme } from '@/global/theme';
 
 export const ButtonRoot = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
@@ -13,4 +13,4 @@ export const ButtonRoot = styled.TouchableOpacity.attrs({
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-`
+`;
