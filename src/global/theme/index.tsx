@@ -23,7 +23,7 @@ export const theme = {
 				regular: 'Inter-Regular',
 				semiBold: 'Inter-SemiBold',
 				thin: 'Inter-Thin',
-			}
-		}
-	}
+			},
+		},
+	},
 };

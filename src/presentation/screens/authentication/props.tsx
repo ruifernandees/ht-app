@@ -1,4 +1,4 @@
-export interface IFieldValues {
-  email: string;
-  password: string;
-}
+export type IFieldValues = {
+	email: string;
+	password: string;
+};

@@ -26,7 +26,5 @@
         "react"
     ],
     "rules": {
-        "@typescript-eslint/no-unsafe-assignment": "warning",
-        "no-unsafe-assignment": "off"
     }
 }

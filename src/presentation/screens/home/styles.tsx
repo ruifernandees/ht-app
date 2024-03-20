@@ -1,11 +1,11 @@
-import { theme } from "@/global/theme";
-import { RFValue } from "react-native-responsive-fontsize";
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
+import {theme} from '@/global/theme';
+import {RFValue} from 'react-native-responsive-fontsize';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
 
 export const Container = styled(SafeAreaView)<{backgroundColor?: string}>`
   flex: 1;
-  background-color: ${({ backgroundColor }) => backgroundColor || theme.colors.black};
+  background-color: ${({backgroundColor}) => backgroundColor || theme.colors.black};
 `;
 
 export const Title = styled.Text`

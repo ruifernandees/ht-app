@@ -1,9 +1,8 @@
-import { theme } from "@/global/theme";
-import { RFValue } from "react-native-responsive-fontsize";
-import { Feather } from '@expo/vector-icons';
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
-
+import {theme} from '@/global/theme';
+import {RFValue} from 'react-native-responsive-fontsize';
+import {Feather} from '@expo/vector-icons';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
@@ -14,9 +13,8 @@ export const Content = styled.ScrollView`
   padding: 0 ${RFValue(16)}px;
 `;
 
-
 export const OptionButton = styled.TouchableOpacity.attrs({
-  activeOpacity: 0.7
+	activeOpacity: 0.7,
 })<{color?: string}>`
   background-color: ${({color}) => color || '#ddd'};
   padding: ${RFValue(16)}px ${RFValue(24)}px;
@@ -34,8 +32,8 @@ export const ButtonText = styled.Text<{color?: string}>`
 `;
 
 export const Icon = styled(Feather).attrs(({color}) => ({
-  size: RFValue(24),
-  color: color || theme.colors.black,
+	size: RFValue(24),
+	color: color || theme.colors.black,
 }))`
   margin-left: ${RFValue(8)}px;
 `;
@@ -48,7 +46,7 @@ export const Input = styled.TextInput`
   padding: ${RFValue(14)}px ${RFValue(10)}px;
   min-width: ${RFValue(200)}px;
 
-`
+`;
 export const InputContainer = styled.View``;
 
 export const InputHorizontalContainer = styled.View`
@@ -56,13 +54,13 @@ export const InputHorizontalContainer = styled.View`
   align-items: center;
   justify-content: space-between;
   /* background-color: aqua; */
-`
+`;
 
 export const ErrorText = styled.Text`
   margin-bottom: ${RFValue(14)}px;
   font-size: ${RFValue(12)}px;
   color: ${theme.colors.red};
-`
+`;
 
 export const Title = styled.Text`
   font-family: ${theme.typography.fontFamily.inter.bold};
@@ -85,8 +83,8 @@ export const SegmentedButtonsContainer = styled.View`
 export const ColorDisplay = styled.View<{color?: string}>`
   width: ${RFValue(24)}px;
   height: ${RFValue(24)}px;
-  background-color: ${({ color }) => color || "transparent"};
+  background-color: ${({color}) => color || 'transparent'};
   border-width: ${RFValue(1)}px;
   border-color: ${theme.colors.black};
   border-radius: ${RFValue(5)}px;
-`
+`;

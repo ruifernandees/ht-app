@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {BottomTabCollection} from './bottom-tab-bar/index.routes';
 import {AuthenticationScreen} from '@/presentation/screens/authentication';
 import {EAppStackRoutes} from './mappers/EAppStackRoutes';
-import { AuthenticationProvider } from '@/presentation/provider/AuthenticationProvider';
+import {AuthenticationProvider} from '@/presentation/provider/AuthenticationProvider';
 
 const Stack = createNativeStackNavigator();
 

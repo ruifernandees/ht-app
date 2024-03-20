@@ -1,6 +1,6 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
-import { Dimensions } from "react-native";
+import {Dimensions} from 'react-native';
 
 export const OverlayContainer = styled.View`
   position: fixed;
