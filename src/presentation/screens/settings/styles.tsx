@@ -3,7 +3,6 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-import { Modalize } from "react-native-modalize";
 
 
 export const Container = styled(SafeAreaView)`
@@ -64,8 +63,6 @@ export const ErrorText = styled.Text`
   font-size: ${RFValue(12)}px;
   color: ${theme.colors.red};
 `
-export const Modal = styled(Modalize)`
-`;
 
 export const Title = styled.Text`
   font-family: ${theme.typography.fontFamily.inter.bold};
@@ -78,10 +75,6 @@ export const Subtitle = styled.Text`
   font-size: ${RFValue(16)}px;
   margin-bottom: ${RFValue(8)}px;
   margin-top: ${RFValue(16)}px;
-`;
-
-export const ModalContent = styled.View`
-  padding: ${RFValue(24)}px;
 `;
 
 export const SegmentedButtonsContainer = styled.View`

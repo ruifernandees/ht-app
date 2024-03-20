@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ButtonText, ColorDisplay, Container,  Content,  ErrorText,  Icon, Input, InputContainer, InputHorizontalContainer, Modal, ModalContent, OptionButton, SegmentedButtonsContainer, Subtitle, Title } from './styles';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ButtonText, ColorDisplay, Container,  Content,  ErrorText,  Icon, Input, InputContainer, InputHorizontalContainer, OptionButton, SegmentedButtonsContainer, Subtitle, Title } from './styles';
 import { Header } from '@/presentation/components/Header';
-import database from '@react-native-firebase/database';
 
 import { useAuthenticationStore } from '@/presentation/stores/authentication';
 import { AccessibilityInfo } from 'react-native';
 
-import RadioGroup from 'react-native-radio-buttons-group';
 import Snackbar from 'react-native-snackbar';
 import { theme } from '@/global/theme';
 import { LoadingWithOverlay } from '@/presentation/components/LoadingWithOverlay';
@@ -14,8 +12,6 @@ import { FormSchema, ObjectLabelsMapper, inputs, options } from './data';
 import { IFieldValues } from './props';
 import {  Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Modalize } from 'react-native-modalize';
-import { EObjectId } from '@/domain/enums/EObjectId';
 import { Divider, RadioButton, SegmentedButtons } from 'react-native-paper';
 import { useObjectsStore } from '@/presentation/stores/objects';
 import { ShapeObject } from '@/domain/entities/ShapeObject';
