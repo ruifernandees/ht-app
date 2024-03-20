@@ -57,6 +57,12 @@ yarn android
 ## 🧪 Testes Automatizados
 - Foram feitos 3 testes unitários:
   - No componente Header (com a React Testing Library), para testar seus componentes internos e eventos com fireEvent;
+  - Na função validateHexColor para verificar a validade de valores hexadecimais;
+  - No FirebaseUserAdapter para testar a conversão do objeto vindo do Firebase para a entidade User.
+- Para rodar os testes, basta executar o comando:
+```sh
+yarn test
+```
 
 ## 💻 Padronização de código
 - Foi utilizado o Airbnb Standard no projeto, com as bibliotecas ESLint e Prettier. Para executar cada um, basta rodar, respectivamente:
