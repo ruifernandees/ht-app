@@ -162,7 +162,7 @@ export const SettingsScreen: React.FC = () => {
     Object.entries(errors).forEach(([key]) => {
       const _errors = errors as Record<string, { message: string }>;
       if (_errors[key]?.message) {
-        message += `${_errors[key].message  }. `;
+        message += `${_errors[key].message}. `;
       }
     });
     if (message) {
@@ -260,7 +260,9 @@ export const SettingsScreen: React.FC = () => {
                       <Input
                         {...input}
                         onChangeText={(_value) => {
-                          onChange(_value.replace(/\s+/g, '').replace(',', '.'));
+                          onChange(
+                            _value.replace(/\s+/g, '').replace(',', '.')
+                          );
                         }}
                         value={value}
                         onBlur={onBlur}
