@@ -45,7 +45,7 @@ export const FormSchema = zod.object({
 		.coerce
 		.string({required_error: ROTATION_X_REQUIRED_MESSAGE})
 		.min(1, ROTATION_X_REQUIRED_MESSAGE)
-		.refine(value => !isNaN(Number(value)), 'Informe um número válido')
+		.refine(value => !isNaN(Number(value)), 'Informe um número válido para a rotação X')
 		.transform(value => Number(value)),
 	// .refine(val => {
 	// 	console.log(`[${val}]`, val, String(val).length, 'X');
@@ -56,7 +56,7 @@ export const FormSchema = zod.object({
 		.string({required_error: ROTATION_Y_REQUIRED_MESSAGE})
 		.min(1, ROTATION_Y_REQUIRED_MESSAGE)
 
-		.refine(value => !isNaN(Number(value)), 'Informe um número válido')
+		.refine(value => !isNaN(Number(value)), 'Informe um número válido para a rotação Y')
 		.transform(value => Number(value)),
 	// .refine(val => {
 	// 	console.log(String(val), val, String(val).length, 'Y');
@@ -66,7 +66,7 @@ export const FormSchema = zod.object({
 		.coerce
 		.string({required_error: ROTATION_Z_REQUIRED_MESSAGE})
 		.min(1, ROTATION_Z_REQUIRED_MESSAGE)
-		.refine(value => !isNaN(Number(value)), 'Informe um número válido')
+		.refine(value => !isNaN(Number(value)), 'Informe um número válido para a rotação Z')
 		.transform(value => Number(value)),
 	// .refine(val => {
 	// 	console.log(String(val), val, String(val).length, 'Z');
