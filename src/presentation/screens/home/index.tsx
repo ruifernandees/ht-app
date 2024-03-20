@@ -36,17 +36,14 @@ export const HomeScreen: React.FC = () => {
 				<pointLight position={[1, 0.9, 1]} />
 				<pointLight position={[1, -2, -2]} />
 				<pointLight position={[1, -3, 1]} />
-				{objects.map((_object, index) => {
-					console.log('👽', _object);
-					return <mesh
-						position={positions[index]}
-						rotation={_object.rotation}
-						key={_object.id}
-					>
-						{options[_object.shape]}
-						<meshStandardMaterial color={_object.color} />
-					</mesh>;
-				})}
+				{objects.map((_object, index) => <mesh
+					position={positions[index]}
+					rotation={_object.rotation}
+					key={_object.id}
+				>
+					{options[_object.shape]}
+					<meshStandardMaterial color={_object.color} />
+				</mesh>)}
 			</Canvas> }
 
 	</Container>;

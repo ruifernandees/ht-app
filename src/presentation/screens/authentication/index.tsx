@@ -37,13 +37,10 @@ export const AuthenticationScreen: React.FC = () => {
 	const {setUser} = useAuthenticationStore();
 
 	async function handleLogin(data: IFieldValues) {
-		console.log({data});
-
 		setIsLoading(true);
 		Keyboard.dismiss();
 		try {
 			const user = await authenticateUserUseCase.execute(data);
-			console.log(JSON.stringify(user, null, 2));
 			AccessibilityInfo
 				.announceForAccessibility(`Seja bem-vindo(a) ${user.name}`);
 			setUser(user);
@@ -91,7 +88,6 @@ export const AuthenticationScreen: React.FC = () => {
 			<Title>Seja bem-vindo(a)!</Title>
 			{inputs.map(({name, ...input}) => {
 				const inputName = name as keyof IFieldValues;
-				console.log({inputName});
 				return <Controller
 					control={control}
 					name={inputName}

@@ -60,7 +60,6 @@ export const SettingsScreen: React.FC = () => {
 			.announceForAccessibility(`
 				Você selecionou o ${object.name}. Arraste para baixo para configuração.
 			`);
-		console.log({object});
 		setSelectedObject(object);
 	};
 
@@ -69,7 +68,6 @@ export const SettingsScreen: React.FC = () => {
 	}, [selectedObject]);
 
 	useFocusEffect(useCallback(() => {
-		console.log('A');
 		setTimeout(() => {
 			AccessibilityInfo
 				.announceForAccessibility(`
@@ -152,7 +150,6 @@ export const SettingsScreen: React.FC = () => {
 				message += _errors[key].message + '. ';
 			}
 		});
-		console.log(message);
 		if (message) {
 			setTimeout(() => {
 				AccessibilityInfo
