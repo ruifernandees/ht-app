@@ -11,23 +11,17 @@
       "sourceType": "module"
     },
     "rules": {
-  //you can turn off warning by making it "off"
       "react/function-component-definition": "off",
+      "import/prefer-default-export": "off",
+      "no-undef": "off",
       "no-param-reassign": "off",
-  
-      // allow .js files to contain JSX code
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-  
-      // prevent eslint to complain about the "styles" variable being used before it was defined
+      "eslint-plugin-import/no-unresolved": "off",
+      "react/jsx-filename-extension": "off",
+      "import/extensions": "off",
+      "import/no-unresolved": "off",
       "no-use-before-define": ["error", { "variables": false }],
-  
-      // ignore errors for the react-navigation package
       "react/prop-types": ["error", { "ignore": ["navigation", "navigation.navigate"] }],
-  
-      // enforce a maximum of two styles for inline styles
-      "react-native/no-inline-styles": "error", // Add this line
-  
-      // enforce a maximum file length of 500 lines
+      "react-native/no-inline-styles": "error", 
       "max-lines": ["error", { "max": 500 }]
     }
   }

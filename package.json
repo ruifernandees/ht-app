@@ -8,6 +8,7 @@
     "ios": "expo run:ios",
     "test": "jest src/* --runInBand",
     "lint": "eslint src/**/*.tsx",
+    "lint:prettier": "prettier --write src/**/*.tsx",
     "web": "expo start --web"
   },
   "dependencies": {
