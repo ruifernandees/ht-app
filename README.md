@@ -17,6 +17,12 @@
   - Repository: para realizar a inversão de dependência entre o domínio da aplicação e o Firebase
   - Adapter: para adaptar objetos vindos do Firebase para as interfaces do domínio
 
+## 🏛️ Arquitetura
+- Disponível em: https://miro.com/app/board/uXjVKeHYXFE=/?share_link_id=599749576543
+
+![Arquitetura HT App](https://github.com/ruifernandees/ht-app/assets/23262436/bbe26f30-5ffc-41e1-a9d2-d462ec78f689)
+
+
 ## 🚀 Executando
 Para rodar o projeto em sua máquina, execute os seguintes comandos:
 ```sh
