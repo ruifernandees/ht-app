@@ -12,6 +12,9 @@
 - styled-components (Estilização de componentes React)
 - react-navigation v6 (Navegação dentro do app: Stack e Tab)
 
+## ⬇ Download
+- O download está disponível na seção de Assets da página da release v1.0.0: https://github.com/ruifernandees/ht-app/releases/tag/v1.0.0
+
 ## 📝 Padrões de Projeto
 - Os padrões de projetos utilizados foram:
   - Repository: para realizar a inversão de dependência entre o domínio da aplicação e o Firebase
