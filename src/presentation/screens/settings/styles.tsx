@@ -90,5 +90,5 @@ export const ColorDisplay = styled.View<{ color?: string }>`
 `;
 
 export const Divider = styled(MdDivider)`
-  margin-bottom: ${RFValue(24)};
+  margin-bottom: ${RFValue(24)}px;
 `;
