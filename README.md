@@ -18,6 +18,12 @@
   - Adapter: para adaptar objetos vindos do Firebase para as interfaces do domínio
 
 ## 🏛️ Arquitetura
+- Foi utilizada a Clean Architecture, por proporcionar flexibilidade, manutenibilidade e aplicação dos princípios SOLID na aplicação, além de desacoplar as regras de negócio de provedores externos, como o Firebase.
+- Para facilitar o entendimento, separei o diagrama em 4 camadas:
+  - Domain (Entities, DTOs e UseCases)
+  - Main (injeção de UseCases e rotas)
+  - Infra (implementação dos Repositories)
+  - Presentation (telas, componentes e providers)
 - Disponível em: https://miro.com/app/board/uXjVKeHYXFE=/?share_link_id=599749576543
 
 ![Arquitetura HT App](https://github.com/ruifernandees/ht-app/assets/23262436/bbe26f30-5ffc-41e1-a9d2-d462ec78f689)
