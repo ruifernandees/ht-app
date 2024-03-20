@@ -73,3 +73,6 @@ yarn android
   - Dodecaedro
   - Nó
   - Tetraedro
+
+## 👨🏻‍⚖️ Licenças
+- Ícone do app: https://www.freepik.com/icon/sign-language_6268080
