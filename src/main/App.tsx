@@ -1,13 +1,11 @@
-import React from 'react';
+import React from 'react'
 
-import {MainRouteCollection} from './routes/main.routes';
+import { MainRouteCollection } from './routes/main.routes'
 
 if (__DEV__) {
-	import('../../reactotron-config');
+  import('../../reactotron-config')
 }
 
 export default function App() {
-	return (
-		<MainRouteCollection/>
-	);
+  return <MainRouteCollection />
 }
