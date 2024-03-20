@@ -15,3 +15,8 @@ export const Title = styled.Text`
   font-size: ${RFValue(16)}px;
   margin: ${RFValue(16)}px;
 `;
+
+export const LoadingContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;

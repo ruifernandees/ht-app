@@ -1,11 +1,13 @@
-import { ShapeObject } from "@/domain/entities/ShapeObject";
-import { User } from "@/domain/entities/User";
+/* eslint-disable @typescript-eslint/naming-convention */
+import {type ShapeObject} from '@/domain/entities/ShapeObject';
+import {type User} from '@/domain/entities/User';
 
-export interface IObjectsStoreData {
-  objects: ShapeObject[];
-}
+export type IObjectsStoreData = {
+	objects: ShapeObject[];
+	isFetching?: boolean;
+};
 
-export interface IObjectsStoreProps extends IObjectsStoreData {
-  setObject: (object: ShapeObject, user: User) => Promise<void>;
-  fetchObjects: (user: User) => Promise<ShapeObject[]>;
-}
+export type IObjectsStoreProps = {
+	setObject: (object: ShapeObject, user: User) => Promise<void>;
+	fetchObjects: (user: User) => Promise<ShapeObject[]>;
+} & IObjectsStoreData;
