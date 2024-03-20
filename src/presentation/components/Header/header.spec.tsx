@@ -1,7 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from 'react';
-import {
-	Button, Text, TextInput, View,
-} from 'react-native';
 import {render, screen, fireEvent} from '@testing-library/react-native';
 import {Header} from '.';
 import {Feather} from '@expo/vector-icons';

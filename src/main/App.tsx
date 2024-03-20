@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React from 'react';
 import {MD3LightTheme as DefaultTheme, PaperProvider} from 'react-native-paper';
 

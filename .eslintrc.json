@@ -26,5 +26,9 @@
         "react"
     ],
     "rules": {
+        "new-cap": "off",
+        "@typescript-eslint/prefer-nullish-coalescing": 0,
+        "react/no-unknown-property": "off",
+        "typescript-eslint/naming-convention": "off"
     }
 }

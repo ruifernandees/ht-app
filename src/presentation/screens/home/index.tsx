@@ -2,7 +2,6 @@ import React, {type ReactNode, useEffect, useState} from 'react';
 import {Canvas} from '@react-three/fiber';
 import {Container} from './styles';
 import {useObjectsStore} from '@/presentation/stores/objects';
-import {useAuthenticationStore} from '@/presentation/stores/authentication';
 import {getAppConfigUseCase} from '@/main/usecases/getAppConfigUseCase';
 import {type AppConfig} from '@/domain/entities/AppConfig';
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import type React from 'react';
 import {useEffect} from 'react';
 import {useAuthenticationStore} from '../stores/authentication';

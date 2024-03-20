@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {EObjectId} from '@/domain/enums/EObjectId';
 import {hexRegex, validateHexColor} from '@/global/helpers/validateHexColor';
 import * as zod from 'zod';

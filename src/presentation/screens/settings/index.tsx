@@ -146,7 +146,7 @@ export const SettingsScreen: React.FC = () => {
 
 	useEffect(() => {
 		let message = ' ';
-		Object.entries(errors).map(([key, value]) => {
+		Object.entries(errors).forEach(([key, value]) => {
 			const _errors = errors as Record<string, {message: string}>;
 			if (_errors[key]?.message) {
 				message += _errors[key].message + '. ';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import * as zod from 'zod';
 
 type TAutoCapitalize = 'none' | 'sentences' | 'words' | 'characters' | undefined;

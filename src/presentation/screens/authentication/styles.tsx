@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import styled from 'styled-components/native';
 import SignLanguageImage from '@/assets/images/sign-language.png';
 import {Feather} from '@expo/vector-icons';

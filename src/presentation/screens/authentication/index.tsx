@@ -1,5 +1,4 @@
 
-/* eslint-disable no-unsafe-assignment */
 import React, {
 	useCallback, useEffect, useRef, useState,
 } from 'react';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import {theme} from '@/global/theme';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Feather} from '@expo/vector-icons';
