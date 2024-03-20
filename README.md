@@ -54,7 +54,7 @@ yarn android
   - No componente Header (com a React Testing Library), para testar seus componentes internos e eventos com fireEvent;
  
 ## 🗒️ Observações
-- Configurei as permissões de Read & Write no Real Time Database para acesso geral, para fins de testes
+- Configurei as permissões de Read & Write no RealTime Database para acesso geral, para fins de testes
 - O aplicativo foi configurado para receber atualização do Remote Config com um offset de 1 minuto
 
 ## 👤 Contas de Login
@@ -65,4 +65,11 @@ yarn android
 ### Peter Doe
 - Email: peter.doe@handtalk.com
 - Senha: peterht123
-  
+
+## 🧊 Formas Disponíveis
+- Disponibilizei as seguintes formas:
+  - Cone
+  - Cubo
+  - Dodecaedro
+  - Nó
+  - Tetraedro
